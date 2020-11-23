@@ -8,7 +8,7 @@
     <script src="https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit" async defer>
     </script>
     <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{env('APP_NAME')}}</title>
 </head>
 <body>

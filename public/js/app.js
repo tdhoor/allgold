@@ -100,6 +100,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 var default_layout = "default";
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {},
@@ -107,6 +112,22 @@ var default_layout = "default";
     return {
       message: "hallo world!"
     };
+  },
+  methods: {
+    test: function test(param) {
+      fetch('http://www.allgold.de/api/' + param, {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'X-CSRF-TOKEN': 's1CIuqNWtySD6EPGZRLEagORJnkcnELILBxZqK4p'
+        },
+        method: 'GET'
+      }).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        return console.log(data);
+      });
+    }
   }
 });
 
@@ -595,7 +616,68 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("\n    " + _vm._s(_vm.message) + "\n")])
+  return _c("div", [
+    _vm._v("\n    " + _vm._s(_vm.message) + "\n    "),
+    _c(
+      "button",
+      {
+        on: {
+          click: function($event) {
+            return _vm.test("sales")
+          }
+        }
+      },
+      [_vm._v("sales")]
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        on: {
+          click: function($event) {
+            return _vm.test("inventories")
+          }
+        }
+      },
+      [_vm._v("inventories")]
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        on: {
+          click: function($event) {
+            return _vm.test("products")
+          }
+        }
+      },
+      [_vm._v("products")]
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        on: {
+          click: function($event) {
+            return _vm.test("shoppingcars")
+          }
+        }
+      },
+      [_vm._v("shoppingcars")]
+    ),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        on: {
+          click: function($event) {
+            return _vm.test("stations")
+          }
+        }
+      },
+      [_vm._v("stations")]
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
