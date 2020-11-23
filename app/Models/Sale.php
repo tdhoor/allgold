@@ -9,6 +9,6 @@ class Sale extends Model
 {
     use HasFactory;
     protected $table = 'sales';
-    protected $primaryKey = 'saleID';
+    protected $primaryKey = 'saleId';
     public $timestamps = true;
 }

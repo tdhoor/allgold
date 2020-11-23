@@ -16,7 +16,7 @@ class ShoppingCarController extends Controller
      */
     public function index()
     {
-        $shoppingcars = DB::table('shopping_cars')->paginate(10);
+        $shoppingcars = DB::table('shoppingcars')->paginate(10);
 
         return response()->json([
             'status' => Response::HTTP_OK,

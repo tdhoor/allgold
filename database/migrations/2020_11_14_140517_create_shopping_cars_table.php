@@ -13,14 +13,14 @@ class CreateShoppingCarsTable extends Migration
      */
     public function up()
     {
-        Schema::create('shopping_cars', function (Blueprint $table) {
-            $table->bigIncrements('shoppingCarID');
-            $table->unsignedBigInteger('fk_productID');
-            $table->unsignedBigInteger('fk_saleID');
+        Schema::create('shoppingcars', function (Blueprint $table) {
+            $table->bigIncrements('shoppingCarId');
+            $table->unsignedBigInteger('fk_productId');
+            $table->unsignedBigInteger('fk_saleId');
             $table->integer('amount');
             $table->timestamps();
-            $table->foreign('fk_productID')->references('productID')->on('products')->onDelete('cascade');
-            $table->foreign('fk_saleID')->references('saleID')->on('sales')->onDelete('cascade');
+            $table->foreign('fk_productId')->references('productId')->on('products')->onDelete('cascade');
+            $table->foreign('fk_saleId')->references('saleId')->on('sales')->onDelete('cascade');
         });
     }
 
@@ -31,6 +31,6 @@ class CreateShoppingCarsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shopping_cars');
+        Schema::dropIfExists('shoppingcars');
     }
 }

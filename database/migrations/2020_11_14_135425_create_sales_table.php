@@ -15,10 +15,10 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->bigIncrements('saleID');
-            $table->unsignedBigInteger('fk_stationID');
+            $table->unsignedBigInteger('fk_stationId');
             $table->decimal('totalPrice',8,2);
             $table->timestamps();
-            $table->foreign('fk_stationID')->references('stationID')->on('stations')->onDelete('cascade');
+            $table->foreign('fk_stationId')->references('stationId')->on('stations')->onDelete('cascade');
         });
     }
 

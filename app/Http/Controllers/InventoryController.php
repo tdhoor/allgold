@@ -97,8 +97,8 @@ class InventoryController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'fk_productID' => 'required',
-            'fk_stationID' => 'required',
+            'fk_productid' => 'required',
+            'fk_stationid' => 'required',
             'currentAmount' => 'required',
             'targetAmount' => 'required'
         ]);

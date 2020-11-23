@@ -14,14 +14,14 @@ class CreateInventoriesTable extends Migration
     public function up()
     {
         Schema::create('inventories', function (Blueprint $table) {
-            $table->bigIncrements('inventoryID');
+            $table->bigIncrements('inventoryId');
             $table->unsignedBigInteger('fk_productID');
             $table->unsignedBigInteger('fk_stationID');
             $table->integer('currentAmount');
             $table->integer('targetAmount');
             $table->timestamps();
-            $table->foreign('fk_productID')->references('productID')->on('products')->onDelete('cascade');
-            $table->foreign('fk_stationID')->references('stationID')->on('stations')->onDelete('cascade');
+            $table->foreign('fk_productId')->references('productId')->on('products')->onDelete('cascade');
+            $table->foreign('fk_stationId')->references('stationId')->on('stations')->onDelete('cascade');
         });
     }
 
