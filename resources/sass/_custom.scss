@@ -1,0 +1,19 @@
+html,
+body{
+    overflow-x: hidden;
+}
+
+.pagination{
+    justify-content: center;
+    align-items: center;
+}
+
+.verkaufsstellen-table{
+    td > form {
+        display: inline-block;
+
+        button {
+                margin-left: 20px;
+        }
+    }
+}

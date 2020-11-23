@@ -1,23 +1,35 @@
 <template>
     <div>
-        {{ message }}
-        <button @click="test('sales')">sales</button>
-        <button @click="test('inventories')">inventories</button>
-        <button @click="test('products')">products</button>
-        <button @click="test('shoppingcars')">shoppingcars</button>
-        <button @click="test('stations')">stations</button>
+        <Header v-bind:items="navItems" />
+        <div>
+            {{ message }}
+            <button @click="test('sales')">sales</button>
+            <button @click="test('inventories')">inventories</button>
+            <button @click="test('products')">products</button>
+            <button @click="test('shoppingcars')">shoppingcars</button>
+            <button @click="test('stations')">stations</button>
+        </div>
     </div>
 </template>
+
 <script>
 const default_layout = "default";
+import Header from '../components/Header';
 
 export default {
+    components: {
+        Header,
+    },
     computed: {
 
     },
     data () {
         return   {
-            message: "hallo world!"
+            message: 'hellow',
+            navItems: [
+                {'url': 'google.at', 'name': 'google'},
+                {'url': 'amazon.de', 'name': 'amazon'},
+            ]
         };
     },
     methods: {
