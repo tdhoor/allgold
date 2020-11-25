@@ -19,7 +19,7 @@ class ShoppingCarController extends Controller
         $shoppingcars = DB::table('shoppingcars')->paginate(10);
 
         return response()->json([
-            'status' => Response::HTTP_OK,
+            'status' => ($shoppingcars == null) ? 404 : Response::HTTP_OK,
             'data' => $shoppingcars
         ]);
     }
@@ -43,14 +43,14 @@ class ShoppingCarController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'productid' => 'required|integer',
-            'saleid' => 'required|integer',
+            'fk_productId' => 'required|integer',
+            'fk_saleId' => 'required|integer',
             'amount' => 'required|integer',
         ]);
 
         $shoppingcar = new ShoppingCar();
-        $shoppingcar->fk_productID = $request->input('productid');
-        $shoppingcar->fk_saleID = $request->input('saleid');
+        $shoppingcar->fk_productId = $request->input('fk_productId');
+        $shoppingcar->fk_saleId = $request->input('fk_saleId');
         $shoppingcar->amount = $request->input('amount');
         $shoppingcar->save();
              
@@ -68,9 +68,10 @@ class ShoppingCarController extends Controller
      */
     public function show($id)
     {
+        $shoppingcar = ShoppingCar::find($id);
         return response()->json([
-            'status' => Response::HTTP_OK,
-            'data' => ShoppingCar::find($id)
+            'status' => ($shoppingcar == null) ? 404 : Response::HTTP_OK,
+            'data' => $shoppingcar
         ]);
     }
 
@@ -95,14 +96,14 @@ class ShoppingCarController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'productid' => 'required|integer',
-            'saleid' => 'required|integer',
+            'fk_productId' => 'required|integer',
+            'fk_saleId' => 'required|integer',
             'amount' => 'required|integer',
         ]);
 
         $shoppingcar = ShoppingCar::find($id);
-        $shoppingcar->fk_productID = $request->input('productid');
-        $shoppingcar->fk_saleID = $request->input('saleid');
+        $shoppingcar->fk_productId = $request->input('fk_productId');
+        $shoppingcar->fk_saleId = $request->input('fk_saleId');
         $shoppingcar->amount = $request->input('amount');
         $shoppingcar->save();
              

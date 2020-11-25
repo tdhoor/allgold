@@ -20,7 +20,7 @@ class SaleController extends Controller
         $sales = DB::table('sales')->paginate(10);
 
         return response()->json([
-            'status' => Response::HTTP_OK,
+            'status' => ($sales == null) ? 404 : Response::HTTP_OK,
             'data' => $sales
         ]);
     }
@@ -49,7 +49,7 @@ class SaleController extends Controller
         ]);
 
         $sale = new Sale();
-        $sale->fk_stationID = $request->input('stationid');
+        $sale->fk_stationId = $request->input('stationid');
         $sale->totalPrice = $request->input('totalprice');
         $sale->save();
              
@@ -67,15 +67,10 @@ class SaleController extends Controller
      */
     public function show($id)
     {
-        $this->validate($request, [
-            'stationid' => 'required'
-        ]);
-
-        $stationID = $request->input('stationid');
-
+        $sale = Sale::find($id);
         return response()->json([
-            'status' => Response::HTTP_OK,
-            'data' => Inventroy::find($id)
+            'status' => ($sale == null) ? 404 : Response::HTTP_OK,
+            'data' => $sale
         ]);
     }
 
@@ -100,13 +95,13 @@ class SaleController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'stationid' => 'required|integer',
-            'totalprice' => 'required',
+            'fk_stationid' => 'required|integer',
+            'totalPrice' => 'required',
         ]);
 
         $sale = Sale::find($id);
-        $sale->fk_stationID = $request->input('stationid');
-        $sale->totalPrice = $request->input('totalprice');
+        $sale->fk_stationId = $request->input('fk_stationid');
+        $sale->totalPrice = $request->input('totalPrice');
         $sale->save();
              
         return response()->json([
@@ -133,7 +128,7 @@ class SaleController extends Controller
     }
 
     public function getNewPrimaryKey(){
-        $id = DB::table('sales')->max('saleID') | 1;
+        $id = DB::table('sales')->max('saleId') | 1;
 
         return response()->json([
             'status' => Response::HTTP_OK,

@@ -19,7 +19,7 @@ class StationsController extends Controller
         $stations = DB::table('stations')->paginate(10);
 
         return response()->json([
-            'status' => Response::HTTP_OK,
+            'status' => ($stations == null) ? 404 : Response::HTTP_OK,
             'data' => $stations
         ]);
     }
@@ -76,8 +76,8 @@ class StationsController extends Controller
             $stations = Station::find($value);
             if($stations != null)
                 return response()->json([
-                    'status' => Response::HTTP_OK,
-                    'data' => $station
+                    'status' => ($stations == null) ? 404 : Response::HTTP_OK,
+                    'data' => $stations
                 ]);
         }
 
@@ -85,7 +85,7 @@ class StationsController extends Controller
         
         if(count($stations) > 0)
             return response()->json([
-                'status' => Response::HTTP_OK,
+                'status' => ($stations == null) ? 404 : Response::HTTP_OK,
                 'data' => $station
             ]);
     }
@@ -118,7 +118,7 @@ class StationsController extends Controller
             'description' => 'required',
         ]);
 
-        $station = Station::find();
+        $station = Station::find($id);
         $station->coordsA = $request->input('coordsA');
         $station->coordsB = $request->input('coordsB');
         $station->location = $request->input('location');

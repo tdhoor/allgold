@@ -14,7 +14,7 @@ class CreateSalesTable extends Migration
     public function up()
     {
         Schema::create('sales', function (Blueprint $table) {
-            $table->bigIncrements('saleID');
+            $table->bigIncrements('saleId');
             $table->unsignedBigInteger('fk_stationId');
             $table->decimal('totalPrice',8,2);
             $table->timestamps();

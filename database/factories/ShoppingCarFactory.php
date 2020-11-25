@@ -22,8 +22,8 @@ class ShoppingCarFactory extends Factory
     public function definition()
     {
         return [
-            'fk_productID' => $this->faker->numberBetween($min = 1, $max = 10),
-            'fk_saleID' => $this->faker->numberBetween($min = 1, $max = 10),
+            'fk_productId' => $this->faker->numberBetween($min = 1, $max = 10),
+            'fk_saleId' => $this->faker->numberBetween($min = 1, $max = 10),
             'amount' => $this->faker->numberBetween($min = 1, $max = 10),
         ];
     }

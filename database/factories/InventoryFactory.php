@@ -22,8 +22,8 @@ class InventoryFactory extends Factory
     public function definition()
     {
         return [
-            'fk_productID' => $this->faker->numberBetween($min = 1, $max = 10),
-            'fk_stationID' => $this->faker->numberBetween($min = 1, $max = 10),
+            'fk_productId' => $this->faker->numberBetween($min = 1, $max = 10),
+            'fk_stationId' => $this->faker->numberBetween($min = 1, $max = 10),
             'currentAmount' => $this->faker->numberBetween($min = 10, $max = 1000),
             'targetAmount' => $this->faker->numberBetween($min = 10, $max = 100)
         ];

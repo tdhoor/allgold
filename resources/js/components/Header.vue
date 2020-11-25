@@ -4,11 +4,11 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent" v-for="item in items" :key="item.name">
-            <ul class="navbar-nav ml-auto" >
-                    <li class="nav-item " >
-                        <a class="nav-link" v-bind:href="item.url">{{ item.name }}</a>
-                    </li>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item " v-for="item in items" :key="item.name">
+                    <a class="nav-link" v-bind:href="item.url">{{ item.name }}</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -18,21 +18,16 @@
 
 export default {
     name: 'Header',
-    props: ['items'],
+    props: ['subPages'],
     data () {
         return  {
             title: 'Allgold',
-            items: [
-                { url: 'foo', name: 'foo' },
-                { url: 'aaa', name: 'aaa' },
-                { url: 'bbb', name: 'bbbb' },
-                { url: 'bar', name: 'Bar' }
-            ]
+            items: []
         }
     },
     mounted () {
         this.title = this.$props.title;
-        this.items = this.$props.items;
+        this.items = this.$props.subPages;
     }
 }
 </script>

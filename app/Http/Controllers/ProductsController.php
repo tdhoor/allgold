@@ -19,7 +19,7 @@ class ProductsController extends Controller
         $products = DB::table('products')->paginate(10);
 
         return response()->json([
-            'status' => Response::HTTP_OK,
+            'status' => ($products == null) ? 404 : Response::HTTP_OK,
             'data' => $products
         ]);
     }
@@ -43,7 +43,6 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'productid' => 'required',
             'title' => 'required',
             'name' => 'required',
             'price' => 'required',
@@ -51,7 +50,6 @@ class ProductsController extends Controller
         ]);
 
         $product = new Product();
-        $product->productid = $request->input('productid');
         $product->title = $request->input('title');
         $product->name = $request->input('name');
         $product->price = $request->input('price');
@@ -72,9 +70,10 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
+        $product = Product::find($id);
         return response()->json([
-            'status' => Response::HTTP_OK,
-            'data' => Product::find($id)
+            'status' => ($product == null) ? 404 : Response::HTTP_OK,
+            'data' => $product
         ]);
     }
 
@@ -99,15 +98,13 @@ class ProductsController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'productid' => 'required',
             'title' => 'required',
             'name' => 'required',
             'price' => 'required',
             'durability' => 'required'
         ]);
 
-        $product = Product::find($id);
-        $product->productid = $request->input('productid');
+        $product = Product::findOrFail($id);
         $product->title = $request->input('title');
         $product->name = $request->input('name');
         $product->price = $request->input('price');
@@ -133,7 +130,7 @@ class ProductsController extends Controller
         
         return response()->json([
             'status' => Response::HTTP_OK,
-            'data' => $inventory
+            'data' => $product
         ]);
     }
 }

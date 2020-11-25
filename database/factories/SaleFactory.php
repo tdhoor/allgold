@@ -22,7 +22,7 @@ class SaleFactory extends Factory
     public function definition()
     {
         return [
-            'fk_stationID' => $this->faker->numberBetween($min = 1, $max = 10),
+            'fk_stationId' => $this->faker->numberBetween($min = 1, $max = 10),
             'totalPrice' => $this->faker->randomFloat(2, 1, 100 )
         ];
     }

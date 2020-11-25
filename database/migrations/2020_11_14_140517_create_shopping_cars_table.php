@@ -14,7 +14,7 @@ class CreateShoppingCarsTable extends Migration
     public function up()
     {
         Schema::create('shoppingcars', function (Blueprint $table) {
-            $table->bigIncrements('shoppingCarId');
+            $table->bigIncrements('shoppingcarId');
             $table->unsignedBigInteger('fk_productId');
             $table->unsignedBigInteger('fk_saleId');
             $table->integer('amount');

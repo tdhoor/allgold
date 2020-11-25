@@ -19,8 +19,8 @@ class InventoryController extends Controller
         $inventories = DB::table('inventories')->paginate(10);
         
         return response()->json([
-            'status' => Response::HTTP_OK,
-            'data' => $inventories
+            'status' => ($inventories == null) ? 404 : Response::HTTP_OK,
+            'data' => $inventories 
         ]);
     }
 
@@ -49,9 +49,9 @@ class InventoryController extends Controller
             'targetAmount' => 'required'
         ]);
 
-        $inventory = new Inventroy();
-        $inventory->fk_productID = $request->input('fk_productid');
-        $inventory->fk_stationID = $request->input('fk_stationid');
+        $inventory = new Inventory();
+        $inventory->fk_productId = $request->input('fk_productid');
+        $inventory->fk_stationId = $request->input('fk_stationid');
         $inventory->currentAmount = $request->input('currentAmount');
         $inventory->targetAmount = $request->input('targetAmount');
         $inventory->save();
@@ -70,9 +70,10 @@ class InventoryController extends Controller
      */
     public function show($id)
     {
+        $inventory = Inventory::findOrFail($id);
         return response()->json([
-            'status' => Response::HTTP_OK,
-            'data' => Inventroy::find($id)
+            'status' => ($inventory == null) ? 404 : Response::HTTP_OK,
+            'data' => $inventory
         ]);
     }
 
@@ -103,9 +104,9 @@ class InventoryController extends Controller
             'targetAmount' => 'required'
         ]);
 
-        $inventory = Inventroy::find($id);
-        $inventory->fk_productID = $request->input('fk_productID');
-        $inventory->fk_stationID = $request->input('fk_stationID');
+        $inventory = Inventory::find($id);
+        $inventory->fk_productId = $request->input('fk_productid');
+        $inventory->fk_stationId = $request->input('fk_stationid');
         $inventory->currentAmount = $request->input('currentAmount');
         $inventory->targetAmount = $request->input('targetAmount');
         $inventory->save();
