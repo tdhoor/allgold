@@ -2,7 +2,14 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
 // Variables
-@import 'variables';
+@import './variables';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+@import './custom';
+
+.app-inner,
+.app-container {
+    height: 100%;
+}

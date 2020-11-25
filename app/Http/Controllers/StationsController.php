@@ -16,7 +16,7 @@ class StationsController extends Controller
      */
     public function index()
     {
-        $stations = DB::table('stations')->paginate(10);
+        $stations = Station::all();
 
         return response()->json([
             'status' => ($stations == null) ? 404 : Response::HTTP_OK,
@@ -67,7 +67,7 @@ class StationsController extends Controller
     /**
      * Display the specified resources.
      *
-     * @param  int  $value = primaryKey (stationID) || location
+     * @param  int  $value = primaryKey (stationid) || location
      * @return \Illuminate\Http\Response
      */
     public function show($value)
@@ -81,7 +81,7 @@ class StationsController extends Controller
                 ]);
         }
 
-        $stations = Station::where('location', $value)->paginate(15);
+        $stations = Station::where('location', $value);
         
         if(count($stations) > 0)
             return response()->json([

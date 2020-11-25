@@ -10903,3 +10903,37 @@ a.text-dark:focus {
   }
 }
 
+html,
+body {
+  overflow-x: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
+.pagination {
+  justify-content: center;
+  align-items: center;
+}
+
+.verkaufsstellen-table td > form {
+  display: inline-block;
+}
+
+.verkaufsstellen-table td > form button {
+  margin-left: 20px;
+}
+
+.container-products,
+.container-console {
+  height: 100%;
+}
+
+.row {
+  overflow-y: scroll;
+}
+
+.app-inner,
+.app-container {
+  height: 100%;
+}
+

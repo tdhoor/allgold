@@ -16,7 +16,7 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        $inventories = DB::table('inventories')->paginate(10);
+        $inventories = Inventories::all();
         
         return response()->json([
             'status' => ($inventories == null) ? 404 : Response::HTTP_OK,
@@ -139,6 +139,10 @@ class InventoryController extends Controller
     }
 
     public static function getInventoryByStationId($id){
-        return DB::table('inventories')->leftJoin('products', 'inventories.fk_productID', '=', 'products.productID')->where('fk_stationID', '=', $id)->paginate(15);
+        $inventory = DB::table('inventories')->rightJoin('products', 'inventories.fk_productID', '=', 'products.productID')->where('fk_stationID', '=', $id)->get();
+        return response()->json([
+            'status' => Response::HTTP_OK,
+            'data' => $inventory
+        ]);
     }
 }

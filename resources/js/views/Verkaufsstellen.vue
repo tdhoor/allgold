@@ -1,49 +1,53 @@
 <template>
-    <div>
-        <Header v-bind:subPages="navItems" />
-        <h1>verkaufsstellen</h1>
+    <div class="app-inner">
+        <Header />
+        <div class="row app-container">
+            <div class="col-12">
+                <Table :items="stations" :btnEdit="true" :btnDelete="true" />
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
+// components
 import Header from '../components/Header'
+import Table from '../components/Table'
+// services
+import StationService from '../services/StationService'
+// utils
+import Station from '../utils/Station'
 
 export default {
+    name: 'Verkaufsstellen',
     components: {
-        Header
+        Header,
+        Table
     },
     computed: {},
     data() {
         return {
-            message: 'hellow',
-            navItems: [
-                {
-                    url: 'http://www.allgold.de/verkaufsstellen',
-                    name: 'Verkaufsstellen'
-                },
-                {
-                    url: 'http://www.allgold.de/lieferanten',
-                    name: 'Lieferanten'
-                },
-                { url: 'http://www.allgold.de/verkauf', name: 'Verkauf' },
-                { url: 'http://www.allgold.de/reporting', name: 'Reporting' },
-                { url: 'http://www.allgold.de/formulare', name: 'Formulare' }
-            ]
+            stations: []
         }
     },
     methods: {
-        test: param => {
-            fetch('http://www.allgold.de/api/' + param, {
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': 's1CIuqNWtySD6EPGZRLEagORJnkcnELILBxZqK4p'
-                },
-                method: 'GET'
+        loadStations: function () {
+            StationService.getAll().then(result => {
+                result.data.forEach(element => {
+                    let station = new Station(element)
+                    this.stations.push(station)
+                })
             })
-                .then(response => response.json())
-                .then(data => console.log(data))
+        },
+        clickTableEdit: function (station) {
+            console.log(station)
+        },
+        clickTableDelete: function (station) {
+            console.log(station)
         }
+    },
+    created() {
+        this.loadStations()
     }
 }
 </script>

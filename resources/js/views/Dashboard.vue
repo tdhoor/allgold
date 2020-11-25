@@ -2,7 +2,7 @@
     <div>
         <Header />
         <div class="container p-5">
-            <div class="row">
+            <div class="row" style="overflow-y: hidden !important">
                 <div
                     class="col-sm-3 m-3"
                     v-for="card in cards"

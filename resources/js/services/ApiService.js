@@ -1,4 +1,4 @@
-import Helper from '../Helper'
+import Helper from '../helper/Helper'
 
 export default class ApiService {
     constructor() {
@@ -8,7 +8,7 @@ export default class ApiService {
 
     static getInstance() {
         if (!this.instance) {
-            this.instance = new RestService()
+            this.instance = new ApiService()
         }
         return this.instance
     }

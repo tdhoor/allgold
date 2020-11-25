@@ -17,7 +17,7 @@ class SaleController extends Controller
      */
     public function index(Request $request)
     {
-        $sales = DB::table('sales')->paginate(10);
+        $sales = Sale::all();
 
         return response()->json([
             'status' => ($sales == null) ? 404 : Response::HTTP_OK,

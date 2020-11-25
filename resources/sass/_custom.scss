@@ -1,19 +1,32 @@
 html,
-body{
+body {
     overflow-x: hidden;
+    width: 100vw;
+    height: 100vh;
 }
 
-.pagination{
+.pagination {
     justify-content: center;
     align-items: center;
 }
 
-.verkaufsstellen-table{
+.verkaufsstellen-table {
     td > form {
         display: inline-block;
 
         button {
-                margin-left: 20px;
+            margin-left: 20px;
         }
     }
+}
+
+.container-products,
+.container-console {
+    height: 100%;
+}
+.container-products {
+}
+
+.row {
+    overflow-y: scroll;
 }

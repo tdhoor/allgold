@@ -16,7 +16,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = DB::table('products')->paginate(10);
+        $products = Product::all();
 
         return response()->json([
             'status' => ($products == null) ? 404 : Response::HTTP_OK,

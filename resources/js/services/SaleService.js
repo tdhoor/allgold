@@ -1,5 +1,5 @@
 import { SERVER_URL } from '../server/Server'
-import ApiService from '../service/ApiService'
+import ApiService from '../services/ApiService'
 
 export default class SaleService {
     constructor() {}

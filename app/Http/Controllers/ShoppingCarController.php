@@ -16,7 +16,7 @@ class ShoppingCarController extends Controller
      */
     public function index()
     {
-        $shoppingcars = DB::table('shoppingcars')->paginate(10);
+        $shoppingcars = ShoppingCar::all();
 
         return response()->json([
             'status' => ($shoppingcars == null) ? 404 : Response::HTTP_OK,
