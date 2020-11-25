@@ -1,5 +1,5 @@
-import { SERVER_URL } from '../server/Server';
-import ApiService from '../service/ApiService';
+import { SERVER_URL } from '../server/Server'
+import ApiService from '../service/ApiService'
 
 export default class SaleService {
     constructor() {}
@@ -10,12 +10,12 @@ export default class SaleService {
                 .post(SERVER_URL + 'verkauf/store', sale)
                 .then(result => {
                     if (result) {
-                        resolve(result);
+                        resolve(result)
                     }
-                    resolve(false);
+                    resolve(false)
                 })
-                .catch(error => console.error(error));
-        });
+                .catch(error => console.error(error))
+        })
     }
 
     getNewKey() {
@@ -23,9 +23,9 @@ export default class SaleService {
             ApiService.getInstance()
                 .get(SERVER_URL + 'verkauf/getNewID')
                 .then(result => {
-                    resolve(result);
+                    resolve(result)
                 })
-                .catch(error => console.error(error));
-        });
+                .catch(error => console.error(error))
+        })
     }
 }

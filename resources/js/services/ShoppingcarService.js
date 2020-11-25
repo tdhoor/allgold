@@ -1,5 +1,5 @@
-import { SERVER_URL } from '../server/Server';
-import ApiService from '../service/ApiService';
+import { SERVER_URL } from '../server/Server'
+import ApiService from '../service/ApiService'
 
 export default class ShoppingcarService {
     constructor() {}
@@ -10,12 +10,12 @@ export default class ShoppingcarService {
                 .post(SERVER_URL + 'verkauf/store', sale)
                 .then(result => {
                     if (result) {
-                        resolve(true);
+                        resolve(true)
                     }
-                    resolve(false);
+                    resolve(false)
                 })
-                .catch(error => console.error(error));
-        });
+                .catch(error => console.error(error))
+        })
     }
 
     getNewKey() {
@@ -23,9 +23,9 @@ export default class ShoppingcarService {
             ApiService.getInstance()
                 .get(SERVER_URL + 'verkauf/getNewID')
                 .then(result => {
-                    resolve(result.saleid);
+                    resolve(result.saleid)
                 })
-                .catch(error => console.error(error));
-        });
+                .catch(error => console.error(error))
+        })
     }
 }

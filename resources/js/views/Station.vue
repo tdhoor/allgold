@@ -6,39 +6,43 @@
 </template>
 
 <script>
-import Header from '../components/Header';
+import Header from '../components/Header'
 
 export default {
     components: {
-        Header,
+        Header
     },
-    computed: {
-
-    },
-    data () {
-        return   {
+    computed: {},
+    data() {
+        return {
             message: 'hellow',
             navItems: [
-                {'url': 'http://www.allgold.de/verkaufsstellen', 'name': 'Verkaufsstellen'},
-                {'url': 'http://www.allgold.de/lieferanten', 'name': 'Lieferanten'},
-                {'url': 'http://www.allgold.de/verkauf', 'name': 'Verkauf'},
-                {'url': 'http://www.allgold.de/reporting', 'name': 'Reporting'},
-                {'url': 'http://www.allgold.de/formulare', 'name': 'Formulare'},
+                {
+                    url: 'http://www.allgold.de/verkaufsstellen',
+                    name: 'Verkaufsstellen'
+                },
+                {
+                    url: 'http://www.allgold.de/lieferanten',
+                    name: 'Lieferanten'
+                },
+                { url: 'http://www.allgold.de/verkauf', name: 'Verkauf' },
+                { url: 'http://www.allgold.de/reporting', name: 'Reporting' },
+                { url: 'http://www.allgold.de/formulare', name: 'Formulare' }
             ]
-        };
+        }
     },
     methods: {
-        test: (param) => {
+        test: param => {
             fetch('http://www.allgold.de/api/' + param, {
-                    headers: {
+                headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': 's1CIuqNWtySD6EPGZRLEagORJnkcnELILBxZqK4p',
+                    'X-CSRF-TOKEN': 's1CIuqNWtySD6EPGZRLEagORJnkcnELILBxZqK4p'
                 },
-                method: 'GET',
+                method: 'GET'
             })
-            .then(response => response.json())
-            .then(data => console.log(data));
+                .then(response => response.json())
+                .then(data => console.log(data))
         }
     }
 }
