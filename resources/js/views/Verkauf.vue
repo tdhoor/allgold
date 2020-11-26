@@ -28,6 +28,7 @@ export default {
         Header,
         Table
     },
+
     computed: {},
     data() {
         return {
@@ -40,7 +41,9 @@ export default {
         loadProducts: function () {
             InventoryService.getInventory(2).then(result => {
                 result.data.forEach(element => {
+                    console.log(element)
                     let product = new Product(element)
+                    console.log(product)
                     this.products.push(product)
                 })
             })

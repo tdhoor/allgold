@@ -4,13 +4,17 @@ export default class Inventory {
         fk_inventoryid = null,
         fk_stationid = null,
         currentAmount = null,
-        targetAmount = null
+        targetAmount = null,
+        created_at = null,
+        updated_at = null
     }) {
         this._inventoryid = inventoryid
         this._fk_inventoryid = fk_inventoryid
         this._fk_stationid = fk_stationid
         this._currentAmount = currentAmount
         this._targetAmount = targetAmount
+        this._created_at = created_at
+        this._updated_at = updated_at
     }
     toJSON() {
         return {
@@ -18,7 +22,9 @@ export default class Inventory {
             fk_inventoryid: this._fk_inventoryid,
             fk_stationid: this._fk_stationid,
             currentAmount: this._currentAmount,
-            targetAmount: this._targetAmount
+            targetAmount: this._targetAmount,
+            created_at: this._created_at,
+            updated_at: this._updated_at
         }
     }
     get inventoryid() {
@@ -36,6 +42,12 @@ export default class Inventory {
     get targetAmount() {
         return this._targetAmount === null ? undefined : this._targetAmount
     }
+    get created_at() {
+        return this._created_at === null ? undefined : this._created_at
+    }
+    get updated_at() {
+        return this._updated_at === null ? undefined : this._updated_at
+    }
     set inventoryid(inventoryid) {
         this._inventoryid = parseInt(inventoryid)
     }
@@ -50,5 +62,11 @@ export default class Inventory {
     }
     set targetAmount(targetAmount) {
         this._targetAmount = Number(targetAmount.toFixed(2))
+    }
+    set created_at(created_at) {
+        this._created_at = created_at
+    }
+    set updated_at(updated_at) {
+        this._updated_at = updated_at
     }
 }

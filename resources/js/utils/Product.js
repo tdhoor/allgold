@@ -4,13 +4,17 @@ export default class Product {
         title = null,
         name = null,
         price = null,
-        durability = null
+        durability = null,
+        created_at = null,
+        updated_at = null
     }) {
         this._productid = productid
         this._title = title
         this._name = name
         this._price = price
         this._durability = durability
+        this._created_at = created_at
+        this._updated_at = updated_at
     }
     toJSON() {
         return {
@@ -18,7 +22,9 @@ export default class Product {
             title: this._title,
             name: this._name,
             price: this._price,
-            durability: this._durability
+            durability: this._durability,
+            created_at: this._created_at,
+            updated_at: this._updated_at
         }
     }
     get productid() {
@@ -36,6 +42,12 @@ export default class Product {
     get durability() {
         return this._durability === null ? undefined : this._durability
     }
+    get created_at() {
+        return this._created_at === null ? undefined : this._created_at
+    }
+    get updated_at() {
+        return this._updated_at === null ? undefined : this._updated_at
+    }
     set productid(productid) {
         this._productid = parseInt(productid)
     }
@@ -50,5 +62,11 @@ export default class Product {
     }
     set durability(durability) {
         this._durability = Number(durability.toFixed(2))
+    }
+    set created_at(created_at) {
+        this._created_at = created_at
+    }
+    set updated_at(updated_at) {
+        this._updated_at = updated_at
     }
 }

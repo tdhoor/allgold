@@ -139,6 +139,7 @@ class InventoryController extends Controller
     }
 
     public static function getInventoryByStationId($id){
+        //return DB::table('inventories')->rightJoin('products', 'inventories.fk_productID', '=', 'products.productID')->where('fk_stationID', '=', $id)->paginate(15);
         $inventory = DB::table('inventories')->rightJoin('products', 'inventories.fk_productID', '=', 'products.productID')->where('fk_stationID', '=', $id)->get();
         return response()->json([
             'status' => Response::HTTP_OK,
