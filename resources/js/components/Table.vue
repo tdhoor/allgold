@@ -2,61 +2,39 @@
     <div class="table-responsive">
         <table class="table table-striped table-hover">
             <thead>
-                <tr>
-                    <!-- foreach element -->
-                    <th v-for="(value, key) in items[0]" :key="key">
-                        {{ key.replace('_', '') }}
-                    </th>
-                    <!-- btns -->
-                    <th></th>
-                </tr>
+                <TableHeader :item="items[0]" />
             </thead>
             <tbody>
-                <!-- @foreach($stations as $station) -->
-                <tr v-for="(item, i) in items" :key="i">
-                    <td v-for="(value, key) in item" :key="key">
-                        {{ value }}
-                    </td>
-                    <td>
-                        <a
-                            v-if="btnAction"
-                            @click="clickTableAction(i)"
-                            class="btn btn-primary"
-                            >Add</a
-                        >
-                        <a
-                            v-if="btnEdit"
-                            @click="clickTableEdit(i)"
-                            class="btn btn-warning"
-                            >Edit</a
-                        >
-                        <a
-                            v-if="btnDelete"
-                            @click="clickTableDelete(i)"
-                            class="btn btn-danger"
-                            >Delete</a
-                        >
-                    </td>
-                </tr>
-                <!-- @endforeach -->
+                <TableItem
+                    v-for="(item, i) in items"
+                    :key="i"
+                    :item="item"
+                    :btnAction="btnAction"
+                    :btnEdit="btnEdit"
+                    :btnDelete="btnDelete"
+                />
             </tbody>
         </table>
     </div>
 </template>
 
 <script>
+import TableHeader from './TableHeader'
+import TableItem from './TableItem'
+
 export default {
     name: 'Table',
-    props: ['items', 'btnAction', 'btnEdit', 'btnDelete'],
+    components: { TableHeader, TableItem },
+    props: ['items', 'btnAction', 'btnDelete', 'btnEdit', 'modalName'],
     methods: {
-        clickTableAction: function (index) {
-            this.$parent.clickTableAction(this.items[index])
+        clickTableAction: function (item) {
+            this.$parent.clickTableAction(item)
         },
-        clickTableEdit: function (index) {
-            this.$parent.clickTableEdit(this.items[index])
+        clickTableEdit: function (item) {
+            this.$parent.clickTableEdit(item)
         },
-        clickTableDelete: function (index) {
-            this.$parent.clickTableDelete(this.items[index])
+        clickTableDelete: function (item) {
+            this.$parent.clickTableDelete(item)
         }
     }
 }

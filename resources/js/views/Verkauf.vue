@@ -43,8 +43,7 @@ export default {
                 result.data.forEach(element => {
                     console.log(element)
                     let product = new Product(element)
-                    console.log(product)
-                    this.products.push(product)
+                    this.products.push(product.toJSON())
                 })
             })
         },

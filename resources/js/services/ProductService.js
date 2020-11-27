@@ -22,9 +22,7 @@ export default class ProductService {
         return new Promise((resolve, reject) => {
             ApiService.getInstance()
                 .get(SERVER_URL + 'verkauf/getNewID')
-                .then(result => {
-                    resolve(result.saleid)
-                })
+                .then(result => resolve(result.saleid))
                 .catch(error => console.error(error))
         })
     }

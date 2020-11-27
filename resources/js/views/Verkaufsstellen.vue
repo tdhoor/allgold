@@ -1,9 +1,19 @@
 <template>
     <div class="app-inner">
         <Header />
+        <Modal
+            :modalName="modalName"
+            :items="modalItem"
+            :title="'Verkaufsstelle Bearbeiten:'"
+        />
         <div class="row app-container">
             <div class="col-12">
-                <Table :items="stations" :btnEdit="true" :btnDelete="true" />
+                <Table
+                    :items="stations"
+                    :modalName="'editStation'"
+                    :btnEdit="true"
+                    :btnDelete="true"
+                />
             </div>
         </div>
     </div>
@@ -13,6 +23,7 @@
 // components
 import Header from '../components/Header'
 import Table from '../components/Table'
+import Modal from '../components/Modal'
 // services
 import StationService from '../services/StationService'
 // utils
@@ -22,12 +33,15 @@ export default {
     name: 'Verkaufsstellen',
     components: {
         Header,
-        Table
+        Table,
+        Modal
     },
     computed: {},
     data() {
         return {
-            stations: []
+            stations: [],
+            modalName: 'modalEdit',
+            modalItem: {}
         }
     },
     methods: {
@@ -40,10 +54,33 @@ export default {
             })
         },
         clickTableEdit: function (station) {
-            console.log(station)
+            this.modalItem = station
+            $('#' + this.modalName).modal('show')
         },
         clickTableDelete: function (station) {
             console.log(station)
+        },
+        saveEntry: function (station) {
+            let that = this
+
+            StationService.update(station.toJSON()).then(result => {
+                this.updateEntry(result)
+                $('#' + this.modalName).modal('hide')
+            })
+        },
+        updateEntry: function (station) {
+            const index = this.stations.findIndex(
+                x => x.stationid === station.stationid
+            )
+            this.stations.splice(index, 1, station)
+        }
+    },
+    watch: {
+        stations: {
+            handler(newItem) {
+                return newItem
+            },
+            deep: true
         }
     },
     created() {
