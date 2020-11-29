@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Models\Station;
 use Illuminate\Support\Facades\DB;
+
+use  Converter;
 
 class StationsController extends Controller
 {
@@ -18,10 +19,7 @@ class StationsController extends Controller
     {
         $stations = Station::all();
 
-        return response()->json([
-            'status' => ($stations == null) ? 404 : Response::HTTP_OK,
-            'data' => $stations
-        ]);
+        return Converter::handleResponse('Successfully found!', 'No search result!', $stations);
     }
 
     /**
@@ -43,11 +41,11 @@ class StationsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'coordsA' => 'required',
-            'coordsB' => 'required',
-            'location' => 'required',
-            'type' => 'required',
-            'description' => 'required',
+            'coordsA' => 'required|numeric',
+            'coordsB' => 'required|numeric',
+            'location' => 'required|string',
+            'type' => 'required|string',
+            'description' => 'required|string',
         ]);
 
         $station = new Station();
@@ -58,10 +56,7 @@ class StationsController extends Controller
         $station->description = $request->input('description');
         $station->save();
 
-        return response()->json([
-            'status' => Response::HTTP_OK,
-            'data' => $station
-        ]);
+        return Converter::handleResponse('Successfully created!', 'Error by created!', $station);
     }
 
     /**
@@ -72,22 +67,19 @@ class StationsController extends Controller
      */
     public function show($value)
     {
-        if(preg_match('/\\d/', $value)){
+        // search by id
+        if(preg_match('/\\d/', $value))
+        {
             $stations = Station::find($value);
-            if($stations != null)
-                return response()->json([
-                    'status' => ($stations == null) ? 404 : Response::HTTP_OK,
-                    'data' => $stations
-                ]);
+            return Converter::handleResponse('Successfully found!', 'No search result', $stations);
         }
-
-        $stations = Station::where('location', $value);
-        
-        if(count($stations) > 0)
-            return response()->json([
-                'status' => ($stations == null) ? 404 : Response::HTTP_OK,
-                'data' => $station
-            ]);
+        // search by location
+        $stations = Station::where('location', $value)->get();
+        if(count($stations) == 0)
+        {
+            return Converter::handleResponse('Successfully found!', 'No search result', null);
+        }
+        return Converter::handleResponse('Successfully found!', 'No search result', $stations);
     }
 
     /**
@@ -126,10 +118,7 @@ class StationsController extends Controller
         $station->description = $request->input('description');
         $station->save();
 
-        return response()->json([
-            'status' => Response::HTTP_OK,
-            'data' => $station
-        ]);
+        return Converter::handleResponse('Successfully updated!', 'Error by updating!', $station);
     }
 
     /**
@@ -143,9 +132,6 @@ class StationsController extends Controller
         $station = Station::find($id);
         $station->delete();
 
-        return response()->json([
-            'status' => Response::HTTP_OK,
-            'data' => $station
-        ]);
+        return Converter::handleResponse('Successfully deleted!', 'Error by deleting!', $station);
     }
 }

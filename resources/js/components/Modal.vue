@@ -6,13 +6,15 @@
         tabindex="-1"
         role="dialog"
         aria-hidden="true"
-        aria-labelledby="exampleModalCenterTitle"
+        data-backdrop="static"
+        data-keyboard="false"
     >
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">{{ title }}</h5>
                     <button
+                        @click="reset()"
                         type="button"
                         class="close"
                         data-dismiss="modal"
@@ -29,25 +31,42 @@
                                 v-for="(value, key) in items"
                                 :key="key"
                             >
-                                <label for="inputEmail4">{{ key }}</label>
+                                <label :for="value">{{
+                                    key.replace('_', '')
+                                }}</label>
                                 <input
-                                    type="text"
+                                    v-if="key !== '_type'"
+                                    :type="handleInputType(key, value)"
                                     class="form-control"
                                     :id="key"
-                                    :placeholder="value"
                                     :readonly="
                                         key.includes('id') ||
                                         key.includes('created') ||
                                         key.includes('updated')
                                     "
                                     v-model="items[key]"
+                                    required
                                 />
+
+                                <select
+                                    v-if="key === '_type'"
+                                    v-model="items[key]"
+                                    class="form-control"
+                                    required
+                                >
+                                    <option value="A">Automaten</option>
+                                    <option value="B">
+                                        Verkaufsstelle mit Automaten
+                                    </option>
+                                    <option value="V">Verkaufsstelle</option>
+                                </select>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button
+                        @click="reset()"
                         type="button"
                         class="btn btn-secondary"
                         data-dismiss="modal"
@@ -75,13 +94,39 @@ export default {
         items: {
             deep: true,
             handler(newItem) {
+                if (this.firstLoad) {
+                    this.backupItem = { ...newItem }
+                    this.firstLoad = false
+                }
                 return newItem
             }
         }
     },
+    data() {
+        // opt. 1
+        return {
+            backupItem: {},
+            firstLoad: true
+        }
+    },
     methods: {
         saveEntry: function () {
-            this.$parent.saveEntry(this.items)
+            this.$parent.handleModalSave(this.items)
+            this.firstLoad = true
+        },
+        reset: function () {
+            for (let item in this.backupItem) {
+                this.items[item] = this.backupItem[item]
+            }
+            this.firstLoad = true
+        },
+        handleInputType: function (key, value) {
+            const type = typeof this.backupItem[key]
+            const types = {
+                number: 'number',
+                string: 'text'
+            }
+            return types[type] || 'text'
         }
     }
 }

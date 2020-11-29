@@ -1,3 +1,5 @@
+import Station from '../utils/Station'
+
 export default class Helper {
     static getAllAttributesFromTag(el) {
         let attributes = {}
@@ -13,5 +15,15 @@ export default class Helper {
 
     static parseStringToFloatNumber(el) {
         return parseFloat(el).toFixed(2)
+    }
+
+    static getStationDummy() {
+        return new Station({
+            location: null,
+            coordsA: null,
+            coordsB: null,
+            type: null,
+            description: null
+        })
     }
 }

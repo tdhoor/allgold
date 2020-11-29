@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
+
+use Converter;
 
 class ProductsController extends Controller
 {
@@ -17,11 +18,7 @@ class ProductsController extends Controller
     public function index()
     {
         $products = Product::all();
-
-        return response()->json([
-            'status' => ($products == null) ? 404 : Response::HTTP_OK,
-            'data' => $products
-        ]);
+        return Converter::handleResponse('Successfully found!', 'Error by finding!', $products);
     }
 
     /**
@@ -56,10 +53,7 @@ class ProductsController extends Controller
         $product->durability = $request->input('durability');
         $product->save();
 
-        return response()->json([
-            'status' => Response::HTTP_OK,
-            'data' => $product
-        ]);
+        return Converter::handleResponse('Successfully created!', 'Error by creating!', $product);
     }
 
     /**
@@ -71,10 +65,7 @@ class ProductsController extends Controller
     public function show($id)
     {
         $product = Product::find($id);
-        return response()->json([
-            'status' => ($product == null) ? 404 : Response::HTTP_OK,
-            'data' => $product
-        ]);
+        return Converter::handleResponse('Successfully found!', 'Error by finding!', $product);
     }
 
     /**
@@ -104,17 +95,14 @@ class ProductsController extends Controller
             'durability' => 'required'
         ]);
 
-        $product = Product::findOrFail($id);
+        $product = Product::find($id);
         $product->title = $request->input('title');
         $product->name = $request->input('name');
         $product->price = $request->input('price');
         $product->durability = $request->input('durability');
         $product->save();
 
-        return response()->json([
-            'status' => Response::HTTP_OK,
-            'data' => $product
-        ]);
+        return Converter::handleResponse('Successfully updated!', 'Error by updating!', $product);
     }
 
     /**
@@ -128,9 +116,6 @@ class ProductsController extends Controller
         $product = Product::find($id);
         $product->delete();
         
-        return response()->json([
-            'status' => Response::HTTP_OK,
-            'data' => $product
-        ]);
+        return Converter::handleResponse('Successfully deleted!', 'Error by deleting!', $product);
     }
 }

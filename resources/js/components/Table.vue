@@ -40,4 +40,24 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.table-responsive {
+    height: 100%;
+    position: absolute;
+    width: 100vw;
+    left: 15px;
+}
+thead {
+    position: sticky;
+    top: 0;
+    background: white;
+}
+thead::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 10px;
+    bottom: -8px;
+    background: linear-gradient(white, transparent);
+}
+</style>

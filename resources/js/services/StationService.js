@@ -9,10 +9,12 @@ export default class StationService {
         return new Promise((resolve, reject) => {
             ApiService.getInstance()
                 .get(SERVER_URL + 'api/stations')
-                .then(result => {
-                    resolve(result)
+                .then(response => {
+                    if (response.status === 200) {
+                        resolve(response.data)
+                    }
                 })
-                .catch(error => console.error(error))
+                .catch(error => reject(error))
         })
     }
 
@@ -20,22 +22,67 @@ export default class StationService {
         return new Promise((resolve, reject) => {
             ApiService.getInstance()
                 .get(SERVER_URL + 'api/stations/' + stationid)
-                .then(result => {
-                    resolve(result)
+                .then(response => {
+                    if (response.status === 200) {
+                        resolve(response.data)
+                    }
                 })
-                .catch(error => console.error(error))
+                .catch(error => reject(error))
+        })
+    }
+
+    static create(station) {
+        let tempStation = new Station(station)
+        return new Promise((resolve, reject) => {
+            ApiService.getInstance()
+                .post(SERVER_URL + 'api/stations', tempStation.toJSON())
+                .then(response => {
+                    if (response.status === 200) {
+                        resolve(response.data[0])
+                    }
+                })
+                .catch(error => reject(error))
         })
     }
 
     static update(station) {
+        let tempStation = new Station(station)
         let id = station.stationid
         return new Promise((resolve, reject) => {
             ApiService.getInstance()
-                .put(SERVER_URL + 'api/stations', id, station)
-                .then(result => {
-                    resolve(new Station(result.data))
+                .put(SERVER_URL + 'api/stations', id, tempStation.toJSON())
+                .then(response => {
+                    if (response.status === 200) {
+                        resolve(response.data[0])
+                    }
                 })
-                .catch(error => console.error(error))
+                .catch(error => console.log(error))
+        })
+    }
+
+    static getByLocationOrId(searchValue) {
+        return new Promise((resolve, reject) => {
+            ApiService.getInstance()
+                .get(SERVER_URL + 'api/stations/' + searchValue)
+                .then(response => {
+                    if (response.status === 200) {
+                        resolve(response.data)
+                    }
+                })
+                .catch(error => console.log(error))
+        })
+    }
+
+    static delete(id) {
+        return new Promise((resolve, reject) => {
+            ApiService.getInstance()
+                .delete(SERVER_URL + 'api/stations', id)
+                .then(response => {
+                    if (response.status === 200) {
+                        resolve(response.data[0])
+                    }
+                })
+                .catch(error => console.log(error))
         })
     }
 }

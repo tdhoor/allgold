@@ -7,6 +7,8 @@ use Illuminate\Http\Response;
 use App\Models\ShoppingCar;
 use Illuminate\Support\Facades\DB;
 
+use Converter;
+
 class ShoppingCarController extends Controller
 {
     /**
@@ -17,11 +19,7 @@ class ShoppingCarController extends Controller
     public function index()
     {
         $shoppingcars = ShoppingCar::all();
-
-        return response()->json([
-            'status' => ($shoppingcars == null) ? 404 : Response::HTTP_OK,
-            'data' => $shoppingcars
-        ]);
+        return Converter::handleResponse('Successfully found!', 'Error by finding!', $shoppingcars);
     }
 
     /**
@@ -32,6 +30,7 @@ class ShoppingCarController extends Controller
     public function create()
     {
         //
+        
     }
 
     /**
@@ -53,11 +52,8 @@ class ShoppingCarController extends Controller
         $shoppingcar->fk_saleId = $request->input('fk_saleId');
         $shoppingcar->amount = $request->input('amount');
         $shoppingcar->save();
-             
-        return response()->json([
-            'status' => Response::HTTP_OK,
-            'shoppingcar' => $shoppingcar
-        ]);
+
+        return Converter::handleResponse('Successfully created!', 'Error by creating!', $shoppingcar);
     }
 
     /**
@@ -69,10 +65,7 @@ class ShoppingCarController extends Controller
     public function show($id)
     {
         $shoppingcar = ShoppingCar::find($id);
-        return response()->json([
-            'status' => ($shoppingcar == null) ? 404 : Response::HTTP_OK,
-            'data' => $shoppingcar
-        ]);
+        return Converter::handleResponse('Successfully found!', 'Error by finding!', $shoppingcar);
     }
 
     /**
@@ -106,11 +99,8 @@ class ShoppingCarController extends Controller
         $shoppingcar->fk_saleId = $request->input('fk_saleId');
         $shoppingcar->amount = $request->input('amount');
         $shoppingcar->save();
-             
-        return response()->json([
-            'status' => Response::HTTP_OK,
-            'data' => $shoppingcar
-        ]);
+        
+        return Converter::handleResponse('Successfully updated!', 'Error by updating!', $shoppingcar);
     }
 
     /**
@@ -124,9 +114,30 @@ class ShoppingCarController extends Controller
         $shoppingcar = ShoppingCar::find($id);
         $shoppingcar->delete();
 
+        return Converter::handleResponse('Successfully deleted!', 'Error by deleting!', $shoppingcar);
+    }
+
+    private function handleResponse($message, $errorMessage, $data){
+        $isValid = false;
+
+        if($data == null)
+        {
+            $isValid = false;
+        }
+        else if(is_object($data))
+        {
+            $isValid = $data != null;
+        }
+        else if(is_array($data))
+        {
+            $isValid = count($data) != 0;
+        }
+
         return response()->json([
-            'status' => Response::HTTP_OK,
-            'data' => $shoppingcar
+            'status'    => $isValid    ?   Response::HTTP_OK   : 404 ,
+            'message'   => $isValid    ?   $message            : $errorMessage,
+            'data'      => $data
         ]);
+
     }
 }

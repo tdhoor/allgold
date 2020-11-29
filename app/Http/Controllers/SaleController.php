@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Models\Sale;
 use Illuminate\Support\Facades\DB;
+
+use Converter;
 
 class SaleController extends Controller
 {
@@ -18,11 +19,7 @@ class SaleController extends Controller
     public function index(Request $request)
     {
         $sales = Sale::all();
-
-        return response()->json([
-            'status' => ($sales == null) ? 404 : Response::HTTP_OK,
-            'data' => $sales
-        ]);
+        return Converter::handleResponse('Successfully found!', 'No search result!', $sales);
     }
 
     /**
@@ -45,18 +42,15 @@ class SaleController extends Controller
     {
         $this->validate($request, [
             'stationid' => 'required|integer',
-            'totalprice' => 'required',
+            'totalPrice' => 'required',
         ]);
 
         $sale = new Sale();
         $sale->fk_stationId = $request->input('stationid');
-        $sale->totalPrice = $request->input('totalprice');
+        $sale->totalPrice = $request->input('totalPrice');
         $sale->save();
              
-        return response()->json([
-            'status' => Response::HTTP_OK,
-            'data' => $sale
-        ]);
+        return Converter::handleResponse('Successfully created!', 'Error by created!', $sale);
     }
 
     /**
@@ -68,10 +62,7 @@ class SaleController extends Controller
     public function show($id)
     {
         $sale = Sale::find($id);
-        return response()->json([
-            'status' => ($sale == null) ? 404 : Response::HTTP_OK,
-            'data' => $sale
-        ]);
+        return Converter::handleResponse('Successfully found!', 'No search result', $sale);
     }
 
     /**
@@ -104,10 +95,7 @@ class SaleController extends Controller
         $sale->totalPrice = $request->input('totalPrice');
         $sale->save();
              
-        return response()->json([
-            'status' => Response::HTTP_OK,
-            'data' => $sale
-        ]);
+        return Converter::handleResponse('Successfully updated!', 'Error by updating!', $sale);
     }
 
     /**
@@ -121,10 +109,7 @@ class SaleController extends Controller
         $sale = Sale::find($id);
         $sale->delete();
 
-        return response()->json([
-            'status' => Response::HTTP_OK,
-            'data' => $sale
-        ]);
+        return Converter::handleResponse('Successfully deleted!', 'Error by deleting!', $sale);
     }
 
     public function getNewPrimaryKey(){
@@ -141,5 +126,29 @@ class SaleController extends Controller
                 ],
                 
         ]);
+    }
+
+    private function handleResponse($message, $errorMessage, $data){
+        $isValid = false;
+
+        if($data == null)
+        {
+            $isValid = false;
+        }
+        else if(is_object($data))
+        {
+            $isValid = $data != null;
+        }
+        else if(is_array($data))
+        {
+            $isValid = count($data) != 0;
+        }
+
+        return response()->json([
+            'status'    => $isValid    ?   Response::HTTP_OK   : 404 ,
+            'message'   => $isValid    ?   $message            : $errorMessage,
+            'data'      => $data
+        ]);
+
     }
 }

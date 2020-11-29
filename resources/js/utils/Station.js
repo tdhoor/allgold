@@ -9,14 +9,14 @@ export default class Station {
         created_at = null,
         updated_at = null
     }) {
-        this._stationid = stationid
-        this._location = location
-        this._coordsA = coordsA
-        this._coordsB = coordsB
-        this._type = type
-        this._description = description
-        this._created_at = created_at
-        this._updated_at = updated_at
+        this.stationid = stationid
+        this.location = location
+        this.coordsA = coordsA
+        this.coordsB = coordsB
+        this.type = type
+        this.description = description
+        this.created_at = created_at
+        this.updated_at = updated_at
     }
     toJSON() {
         return {
@@ -55,27 +55,27 @@ export default class Station {
         return this._updated_at === null ? undefined : this._updated_at
     }
     set stationid(stationid) {
-        this._stationid = parseInt(stationid)
+        this._stationid = Number(stationid)
     }
     set location(location) {
-        this._location = parseInt(location)
+        this._location = String(location)
     }
     set coordsA(coordsA) {
-        this._coordsA = parseInt(coordsA)
+        this._coordsA = Number(coordsA)
     }
     set coordsB(coordsB) {
-        this._coordsB = Number(coordsB.toFixed(2))
+        this._coordsB = Number(coordsB)
     }
     set type(type) {
-        this._type = parseInt(type)
+        this._type = String(type)
     }
     set description(description) {
-        this._description = Number(description.toFixed(2))
+        this._description = String(description)
     }
     set created_at(created_at) {
-        this._created_at = created_at
+        this._created_at = String(created_at)
     }
     set updated_at(updated_at) {
-        this._updated_at = updated_at
+        this._updated_at = String(updated_at)
     }
 }

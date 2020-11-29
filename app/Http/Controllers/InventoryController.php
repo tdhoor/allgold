@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Models\Inventory;
 use Illuminate\Support\Facades\DB;
+
+use Converter;
 
 class InventoryController extends Controller
 {
@@ -16,12 +17,8 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        $inventories = Inventories::all();
-        
-        return response()->json([
-            'status' => ($inventories == null) ? 404 : Response::HTTP_OK,
-            'data' => $inventories 
-        ]);
+        $inventories = Inventory::all();
+        return Converter::handleResponse('Successfully found!', 'Error by finding!', $inventories);
     }
 
     /**
@@ -56,10 +53,7 @@ class InventoryController extends Controller
         $inventory->targetAmount = $request->input('targetAmount');
         $inventory->save();
 
-        return response()->json([
-            'status' => Response::HTTP_OK,
-            'data' => $inventory
-        ]);
+        return Converter::handleResponse('Successfully created!', 'Error by creating!', $inventory);
     }
 
     /**
@@ -70,11 +64,8 @@ class InventoryController extends Controller
      */
     public function show($id)
     {
-        $inventory = Inventory::findOrFail($id);
-        return response()->json([
-            'status' => ($inventory == null) ? 404 : Response::HTTP_OK,
-            'data' => $inventory
-        ]);
+        $inventory = Inventory::find($id);
+        return Converter::handleResponse('Successfully found!', 'Error by finding!', $inventory);
     }
 
     /**
@@ -111,10 +102,7 @@ class InventoryController extends Controller
         $inventory->targetAmount = $request->input('targetAmount');
         $inventory->save();
 
-        return response()->json([
-            'status' => Response::HTTP_OK,
-            'data' => $inventory
-        ]);
+        return Converter::handleResponse('Successfully updated!', 'Error by updating!', $inventory);
     }
 
     /**
@@ -128,22 +116,17 @@ class InventoryController extends Controller
         $inventory = Inventory::find($id);
         $inventory->delete();
 
-        return response()->json([
-            'status' => Response::HTTP_OK,
-            'data' => $inventory
-        ]);
+        return Converter::handleResponse('Successfully deleted!', 'Error by deleting!', $inventory);
     }
 
     public static function getInventoryById($id){
-        return Inventory::find($id);
+        $inventory = Inventory::find($id);
+        return Converter::handleResponse('Successfully found!', 'Error by finding!', $inventory);
     }
 
     public static function getInventoryByStationId($id){
         //return DB::table('inventories')->rightJoin('products', 'inventories.fk_productID', '=', 'products.productID')->where('fk_stationID', '=', $id)->paginate(15);
         $inventory = DB::table('inventories')->rightJoin('products', 'inventories.fk_productID', '=', 'products.productID')->where('fk_stationID', '=', $id)->get();
-        return response()->json([
-            'status' => Response::HTTP_OK,
-            'data' => $inventory
-        ]);
+        return Converter::handleResponse('Successfully found!', 'Error by finding!', $inventory);
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <tr>
+    <tr class="table-header">
         <!-- item -->
         <th v-for="(value, key) in item" :key="key">
             {{ key.replace('_', '') }}
