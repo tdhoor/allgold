@@ -41,12 +41,12 @@ class SaleController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'stationid' => 'required|integer',
+            'stationId' => 'required|integer',
             'totalPrice' => 'required',
         ]);
 
         $sale = new Sale();
-        $sale->fk_stationId = $request->input('stationid');
+        $sale->fk_stationId = $request->input('stationId');
         $sale->totalPrice = $request->input('totalPrice');
         $sale->save();
              
@@ -86,12 +86,12 @@ class SaleController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'fk_stationid' => 'required|integer',
+            'fk_stationId' => 'required|integer',
             'totalPrice' => 'required',
         ]);
 
         $sale = Sale::find($id);
-        $sale->fk_stationId = $request->input('fk_stationid');
+        $sale->fk_stationId = $request->input('fk_stationId');
         $sale->totalPrice = $request->input('totalPrice');
         $sale->save();
              
@@ -120,7 +120,7 @@ class SaleController extends Controller
             'data' => [
                 'sale' => [
                     'saleid' => $id,
-                    'stationid' => 1,
+                    'stationId' => 1,
                     'price' => 99.99
                 ]
                 ],
