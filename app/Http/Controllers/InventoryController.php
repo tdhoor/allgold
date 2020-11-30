@@ -18,6 +18,8 @@ class InventoryController extends Controller
     public function index()
     {
         $inventories = Inventory::all();
+        if(count($inventories) === 0)
+            $inventories = null;
         return Converter::handleResponse('Successfully found!', 'Error by finding!', $inventories);
     }
 

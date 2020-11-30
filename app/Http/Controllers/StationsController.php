@@ -18,7 +18,8 @@ class StationsController extends Controller
     public function index()
     {
         $stations = Station::all();
-
+        if(count($stations) === 0)
+            $stations = null;
         return Converter::handleResponse('Successfully found!', 'No search result!', $stations);
     }
 

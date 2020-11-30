@@ -40,6 +40,7 @@ export default {
     methods: {
         loadProducts: function () {
             InventoryService.getInventory(2).then(result => {
+                console.log(result)
                 result.data.forEach(element => {
                     console.log(element)
                     let product = new Product(element)

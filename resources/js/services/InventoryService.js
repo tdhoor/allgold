@@ -8,10 +8,13 @@ export default class InventoryService {
         return new Promise((resolve, reject) => {
             ApiService.getInstance()
                 .get(SERVER_URL + 'api/inventories/allProducts/' + stationid)
-                .then(result => {
-                    resolve(result)
+                .then(response => {
+                    console.log(response)
+                    if (response.status === 200) {
+                        resolve(response.data)
+                    }
                 })
-                .catch(error => console.error(error))
+                .catch(error => reject(error))
         })
     }
 }

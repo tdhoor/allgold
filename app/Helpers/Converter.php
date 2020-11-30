@@ -21,7 +21,7 @@ class Converter {
         return response()->json([
             'status'    => $isValid    ?   Response::HTTP_OK   : 404 ,
             'message'   => $isValid    ?   $message            : $errorMessage,
-            'data'      => $data,
+            'data'      => $data
         ]);
 
     }
