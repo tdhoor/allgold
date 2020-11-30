@@ -47,10 +47,13 @@ export default class StationService {
 
     static update(station) {
         let tempStation = new Station(station)
-        let id = station.stationid
         return new Promise((resolve, reject) => {
             ApiService.getInstance()
-                .put(SERVER_URL + 'api/stations', id, tempStation.toJSON())
+                .put(
+                    SERVER_URL + 'api/stations',
+                    station.stationId,
+                    tempStation.toJSON()
+                )
                 .then(response => {
                     if (response.status === 200) {
                         resolve(response.data[0])

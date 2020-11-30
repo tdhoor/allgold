@@ -49,8 +49,8 @@ class InventoryController extends Controller
         ]);
 
         $inventory = new Inventory();
-        $inventory->fk_productId = $request->input('fk_productid');
-        $inventory->fk_stationId = $request->input('fk_stationid');
+        $inventory->fk_productid = $request->input('fk_productid');
+        $inventory->fk_stationid = $request->input('fk_stationid');
         $inventory->currentAmount = $request->input('currentAmount');
         $inventory->targetAmount = $request->input('targetAmount');
         $inventory->save();
@@ -98,8 +98,8 @@ class InventoryController extends Controller
         ]);
 
         $inventory = Inventory::find($id);
-        $inventory->fk_productId = $request->input('fk_productid');
-        $inventory->fk_stationId = $request->input('fk_stationid');
+        $inventory->fk_productid = $request->input('fk_productid');
+        $inventory->fk_stationid = $request->input('fk_stationid');
         $inventory->currentAmount = $request->input('currentAmount');
         $inventory->targetAmount = $request->input('targetAmount');
         $inventory->save();
@@ -128,7 +128,7 @@ class InventoryController extends Controller
 
     public static function getInventoryByStationId($id){
         //return DB::table('inventories')->rightJoin('products', 'inventories.fk_productID', '=', 'products.productID')->where('fk_stationID', '=', $id)->paginate(15);
-        $inventory = DB::table('inventories')->rightJoin('products', 'inventories.fk_productID', '=', 'products.productID')->where('fk_stationID', '=', $id)->get();
+        $inventory = DB::table('inventories')->leftJoin('products', 'inventories.fk_productID', '=', 'products.productID')->where('fk_stationID', '=', $id)->get();
         return Converter::handleResponse('Successfully found!', 'Error by finding!', $inventory);
     }
 }

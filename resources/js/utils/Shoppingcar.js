@@ -1,32 +1,32 @@
 export default class Shoppingcar {
     constructor({
-        productid = null,
-        saleid = null,
+        productId = null,
+        saleId = null,
         amount = null,
         created_at = null,
         updated_at = null
     }) {
-        this._productid = productid
-        this._saleid = saleid
-        this._amount = amount
-        this._created_at = created_at
-        this._updated_at = updated_at
+        this.productId = productId
+        this.saleId = saleId
+        this.amount = amount
+        this.created_at = created_at
+        this.updated_at = updated_at
     }
 
     toJSON() {
         return {
-            productid: this._productid,
-            saleid: this._saleid,
+            productId: this._productId,
+            saleId: this._saleId,
             amount: this._amount,
             created_at: this._created_at,
             updated_at: this._updated_at
         }
     }
-    get productid() {
-        return this._productid === null ? undefined : this._productid
+    get productId() {
+        return this._productId === null ? undefined : this._productId
     }
-    get saleid() {
-        return this._saleid === null ? undefined : this._saleid
+    get saleId() {
+        return this._saleId === null ? undefined : this._saleId
     }
     get amount() {
         return this._amount === null ? undefined : this._amount
@@ -37,11 +37,11 @@ export default class Shoppingcar {
     get updated_at() {
         return this._updated_at === null ? undefined : this._updated_at
     }
-    set productid(productid) {
-        this._productid = parseInt(productid)
+    set productId(productId) {
+        this._productId = parseInt(productId)
     }
-    set saleid(saleid) {
-        this._saleid = parseInt(saleid)
+    set saleId(saleId) {
+        this._saleId = parseInt(saleId)
     }
     set amount(amount) {
         this._amount = parseInt(amount)

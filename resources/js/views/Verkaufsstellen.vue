@@ -106,7 +106,7 @@ export default {
                     this.showModalMessage(
                         'Info',
                         'Successfully created Station with id: ' +
-                            response.stationid
+                            response.stationId
                     )
                 })
                 .catch(error => {
@@ -135,6 +135,7 @@ export default {
                 })
         },
         updateStationInDb: function (station) {
+            console.log(station.toJSON())
             StationService.update(station.toJSON())
                 .then(response => {
                     this.updateEntry(new Station(response))
@@ -142,7 +143,7 @@ export default {
                     this.showModalMessage(
                         'Info',
                         'Successfully updated station with id: ' +
-                            response.stationid
+                            response.stationId
                     )
                 })
                 .catch(error => {
@@ -152,13 +153,13 @@ export default {
         },
         deleteStationFromDb: function (station) {
             const index = this.getLocalStationIndex(station)
-            StationService.delete(station.stationid)
+            StationService.delete(station.stationId)
                 .then(response => {
                     this.deletEntry(index)
                     this.showModalMessage(
                         'Info',
                         'Successfully deleted station with id: ' +
-                            response.stationid
+                            response.stationId
                     )
                 })
                 .catch(error => {
@@ -225,7 +226,7 @@ export default {
         },
         getLocalStationIndex: function (item) {
             const index = this.stations.findIndex(
-                x => x.stationid === item.stationid
+                x => x.stationId === item.stationId
             )
             return index
         }

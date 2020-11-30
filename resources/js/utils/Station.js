@@ -1,6 +1,6 @@
 export default class Station {
     constructor({
-        stationid = null,
+        stationId = null,
         location = null,
         coordsA = null,
         coordsB = null,
@@ -9,7 +9,7 @@ export default class Station {
         created_at = null,
         updated_at = null
     }) {
-        this.stationid = stationid
+        this.stationId = stationId
         this.location = location
         this.coordsA = coordsA
         this.coordsB = coordsB
@@ -20,7 +20,7 @@ export default class Station {
     }
     toJSON() {
         return {
-            stationid: this._stationid,
+            stationId: this._stationId,
             location: this._location,
             coordsA: this._coordsA,
             coordsB: this._coordsB,
@@ -30,8 +30,8 @@ export default class Station {
             updated_at: this._updated_at
         }
     }
-    get stationid() {
-        return this._stationid === null ? undefined : this._stationid
+    get stationId() {
+        return this._stationId === null ? undefined : this._stationId
     }
     get location() {
         return this._location === null ? undefined : this._location
@@ -54,8 +54,8 @@ export default class Station {
     get updated_at() {
         return this._updated_at === null ? undefined : this._updated_at
     }
-    set stationid(stationid) {
-        this._stationid = Number(stationid)
+    set stationId(stationId) {
+        this._stationId = Number(stationId)
     }
     set location(location) {
         this._location = String(location)

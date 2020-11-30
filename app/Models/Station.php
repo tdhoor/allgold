@@ -9,6 +9,6 @@ class Station extends Model
 {
     use HasFactory;
     protected $table = 'stations';
-    protected $primaryKey = 'stationid';
+    protected $primaryKey = 'stationId';
     public $timestamps = true;
 }

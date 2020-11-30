@@ -1,6 +1,6 @@
 export default class Product {
     constructor({
-        productid = null,
+        productId = null,
         title = null,
         name = null,
         price = null,
@@ -8,17 +8,17 @@ export default class Product {
         created_at = null,
         updated_at = null
     }) {
-        this._productid = productid
-        this._title = title
-        this._name = name
-        this._price = price
-        this._durability = durability
-        this._created_at = created_at
-        this._updated_at = updated_at
+        this.productId = productId
+        this.title = title
+        this.name = name
+        this.price = price
+        this.durability = durability
+        this.created_at = created_at
+        this.updated_at = updated_at
     }
     toJSON() {
         return {
-            productid: this._productid,
+            productId: this._productId,
             title: this._title,
             name: this._name,
             price: this._price,
@@ -27,8 +27,8 @@ export default class Product {
             updated_at: this._updated_at
         }
     }
-    get productid() {
-        return this._productid === null ? undefined : this._productid
+    get productId() {
+        return this._productId === null ? undefined : this._productId
     }
     get title() {
         return this._title === null ? undefined : this._title
@@ -48,8 +48,8 @@ export default class Product {
     get updated_at() {
         return this._updated_at === null ? undefined : this._updated_at
     }
-    set productid(productid) {
-        this._productid = parseInt(productid)
+    set productId(productId) {
+        this._productId = parseInt(productId)
     }
     set title(title) {
         this._title = parseInt(title)

@@ -9,7 +9,6 @@ export default class InventoryService {
             ApiService.getInstance()
                 .get(SERVER_URL + 'api/inventories/allProducts/' + stationid)
                 .then(response => {
-                    console.log(response)
                     if (response.status === 200) {
                         resolve(response.data)
                     }
