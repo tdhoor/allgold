@@ -2,13 +2,13 @@ export default class Sale {
     constructor({
         saleId = null,
         stationId = null,
-        totalprice = null,
+        totalPrice = null,
         created_at = null,
         updated_at = null
     }) {
         this.saleId = saleId
         this.stationId = stationId
-        this.totalprice = totalprice
+        this.totalPrice = totalPrice
         this.created_at = created_at
         this.updated_at = updated_at
     }
@@ -16,7 +16,7 @@ export default class Sale {
         return {
             saleId: this._saleId,
             stationId: this._stationId,
-            totalprice: this._totalprice,
+            totalPrice: this._totalPrice,
             created_at: this._created_at,
             updated_at: this._updated_at
         }
@@ -27,8 +27,8 @@ export default class Sale {
     get stationId() {
         return this._stationId === null ? undefined : this._stationId
     }
-    get totalprice() {
-        return this._totalprice === null ? undefined : this._totalprice
+    get totalPrice() {
+        return this._totalPrice === null ? undefined : this._totalPrice
     }
     get created_at() {
         return this._created_at === null ? undefined : this._created_at
@@ -42,8 +42,8 @@ export default class Sale {
     set stationId(stationId) {
         this._stationId = parseInt(stationId)
     }
-    set totalprice(totalprice) {
-        this._totalprice = Number(totalprice.toFixed(2))
+    set totalPrice(totalPrice) {
+        this._totalPrice = Number(totalPrice.toFixed(2))
     }
     set created_at(created_at) {
         this._created_at = created_at

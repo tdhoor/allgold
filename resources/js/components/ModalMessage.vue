@@ -22,8 +22,10 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="col">
-                        <p>{{ message }}</p>
+                    <div class="col message">
+                        <p>
+                            <span v-html="message"></span>
+                        </p>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -47,4 +49,9 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.message {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+</style>

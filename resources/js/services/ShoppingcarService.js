@@ -4,26 +4,15 @@ import ApiService from '../services/ApiService'
 export default class ShoppingcarService {
     constructor() {}
 
-    store(sale) {
+    static store(shoppingcar) {
         return new Promise((resolve, reject) => {
             ApiService.getInstance()
-                .post(SERVER_URL + 'verkauf/store', sale)
+                .post(SERVER_URL + 'api/shoppingcars', shoppingcar.toJSON())
                 .then(result => {
                     if (result) {
-                        resolve(true)
+                        resolve(result)
                     }
-                    resolve(false)
-                })
-                .catch(error => console.error(error))
-        })
-    }
-
-    getNewKey() {
-        return new Promise((resolve, reject) => {
-            ApiService.getInstance()
-                .get(SERVER_URL + 'verkauf/getNewID')
-                .then(result => {
-                    resolve(result.saleid)
+                    resolve(result)
                 })
                 .catch(error => console.error(error))
         })
