@@ -5,28 +5,6 @@ body {
     height: 100vh;
 }
 
-.pagination {
-    justify-content: center;
-    align-items: center;
-}
-
-.verkaufsstellen-table {
-    td > form {
-        display: inline-block;
-
-        button {
-            margin-left: 20px;
-        }
-    }
-}
-
-.container-products,
-.container-console {
-    height: 100%;
-}
-.container-products {
-}
-
 .row {
     overflow-y: scroll;
 }

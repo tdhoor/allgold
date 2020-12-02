@@ -43,6 +43,14 @@ export default {
 <style>
 .table-responsive {
     height: 100%;
+}
+tbody {
+    height: 100%;
+    overflow-y: scroll;
+}
+
+/* .table-responsive {
+    height: 100%;
     position: absolute;
     width: 100vw;
     left: 15px;
@@ -59,5 +67,5 @@ thead::after {
     height: 10px;
     bottom: -8px;
     background: linear-gradient(white, transparent);
-}
+} */
 </style>

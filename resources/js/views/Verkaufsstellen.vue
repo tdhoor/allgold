@@ -74,7 +74,7 @@ export default {
     },
     methods: {
         /**
-         * Table Methods
+         * Handle table methods
          */
         clickTableEdit: function (station) {
             this.showModalForm(METHOD_UPDATE_STATION, 'Bearbeiten', station)
@@ -83,7 +83,7 @@ export default {
             this.deleteStationFromDb(station)
         },
         /**
-         * Subnav Methods
+         * Handle subnav methods
          */
         handleSearch: function (text) {
             this.searchStationsFromDb(text)
@@ -96,7 +96,7 @@ export default {
             this.showModalForm(METHOD_NEW_STATION, 'Erstellen', dummy)
         },
         /**
-         * Methods to handle data
+         * Handle data from DB
          */
         addStationToDb: function (station) {
             StationService.create(station)

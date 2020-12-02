@@ -52,16 +52,16 @@ export default class Product {
         this._productId = parseInt(productId)
     }
     set title(title) {
-        this._title = parseInt(title)
+        this._title = title
     }
     set name(name) {
-        this._name = Number(name.toFixed(2))
+        this._name = name
     }
     set price(price) {
-        this._price = parseInt(price)
+        this._price = Number(Math.round(price * 100) / 100)
     }
     set durability(durability) {
-        this._durability = Number(durability.toFixed(2))
+        this._durability = parseInt(durability)
     }
     set created_at(created_at) {
         this._created_at = created_at

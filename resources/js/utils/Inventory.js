@@ -1,7 +1,7 @@
 export default class Inventory {
     constructor({
         inventoryId = null,
-        fk_inventoryId = null,
+        fk_productId = null,
         fk_stationId = null,
         currentAmount = null,
         targetAmount = null,
@@ -9,7 +9,7 @@ export default class Inventory {
         updated_at = null
     }) {
         this.inventoryId = inventoryId
-        this.fk_inventoryId = fk_inventoryId
+        this.fk_productId = fk_productId
         this.fk_stationId = fk_stationId
         this.currentAmount = currentAmount
         this.targetAmount = targetAmount
@@ -19,7 +19,7 @@ export default class Inventory {
     toJSON() {
         return {
             inventoryId: this._inventoryId,
-            fk_inventoryId: this._fk_inventoryId,
+            fk_productId: this._fk_productId,
             fk_stationId: this._fk_stationId,
             currentAmount: this._currentAmount,
             targetAmount: this._targetAmount,
@@ -30,8 +30,8 @@ export default class Inventory {
     get inventoryId() {
         return this._inventoryId === null ? undefined : this._inventoryId
     }
-    get fk_inventoryId() {
-        return this._fk_inventoryId === null ? undefined : this._fk_inventoryId
+    get fk_productId() {
+        return this._fk_productId === null ? undefined : this._fk_productId
     }
     get fk_stationId() {
         return this._fk_stationId === null ? undefined : this._fk_stationId
@@ -51,17 +51,17 @@ export default class Inventory {
     set inventoryId(inventoryId) {
         this._inventoryId = parseInt(inventoryId)
     }
-    set fk_inventoryId(fk_inventoryId) {
-        this._fk_inventoryId = parseInt(fk_inventoryId)
+    set fk_productId(fk_productId) {
+        this._fk_productId = parseInt(fk_productId)
     }
     set fk_stationId(fk_stationId) {
-        this._fk_stationId = Number(fk_stationId)
+        this._fk_stationId = parseInt(fk_stationId)
     }
     set currentAmount(currentAmount) {
         this._currentAmount = parseInt(currentAmount)
     }
     set targetAmount(targetAmount) {
-        this._targetAmount = Number(targetAmount)
+        this._targetAmount = parseInt(targetAmount)
     }
     set created_at(created_at) {
         this._created_at = created_at
