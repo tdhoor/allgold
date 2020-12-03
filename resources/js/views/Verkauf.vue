@@ -15,7 +15,7 @@
         <div class="row app-container">
             <div class="col-6 container-products">
                 <div class="card">
-                    <div class="card-header">Verfügbare Titel</div>
+                    <div class="card-header">Available Products</div>
                     <div class="card-body">
                         <Table :items="products" :btnAction="true" />
                     </div>
@@ -24,7 +24,7 @@
                             class="btn btn-primary"
                             @click="clickRefreshProducts"
                         >
-                            Aktualisieren
+                            Refresh
                         </button>
                     </div>
                 </div>
@@ -43,17 +43,17 @@
                                 class="btn btn-primary"
                                 @click="clickCheckoutShoppingcar"
                             >
-                                Abschließen
+                                Checkout
                             </button>
                             <button
                                 class="btn btn-warning"
                                 @click="clickResetShoppingcar"
                             >
-                                Zurücksetzten
+                                Cancel
                             </button>
                         </div>
                         <div class="d-flex align-items-center">
-                            <span>Totaler Preis: &#160; &#160;</span>
+                            <span>Total price: &#160; &#160;</span>
                             <span class="totalprice">{{ totalPrice }} €</span>
                         </div>
                     </div>
@@ -94,8 +94,7 @@ export default {
             products: [],
             inventories: [],
             shoppingcar: [],
-            shoppingcarCheck: [],
-            stationid: null,
+            stationId: null,
             totalPrice: 0,
             sale: {},
             modal: {
@@ -117,67 +116,99 @@ export default {
         /**
          * DB methods
          */
-        loadInventoryFromDb: function (id) {
-            InventoryService.getInventory(id).then(response => {
-                response.forEach(element => {
-                    let product = new Product(element)
-                    let inventory = new Inventory(element)
+        dbInventoryGet: function (id) {
+            InventoryService.getInventory(id)
+                .then(response => {
+                    response.forEach(element => {
+                        let product = new Product(element)
+                        let inventory = new Inventory(element)
 
-                    this.addInventoryToLocalStorage(inventory)
+                        this.localInventoryAdd(inventory)
 
-                    if (inventory.currentAmount !== 0) {
-                        this.addProductToLocalStorage(product, inventory)
-                    }
+                        if (inventory.currentAmount !== 0) {
+                            this.localProductsAdd(product, inventory)
+                        }
+                    })
+                })
+                .catch(error => this.showModalMessage('Error', error))
+        },
+        dbInventoryUpdate: function (inventory) {
+            return new Promise((resolve, reject) => {
+                InventoryService.update(inventory)
+                    .then(response => {
+                        resolve(response)
+                    })
+                    .catch(error => {
+                        this.showModalMessage('Error', error)
+                    })
+            })
+        },
+        dbInventoriesUpdate: function (inventories) {
+            return new Promise((resolve, reject) => {
+                inventories.forEach((element, index) => {
+                    let newInventory = this.localInventoryUpdate(element)
+                    this.dbInventoryUpdate(newInventory).then(response => {
+                        if (index === inventories.length - 1) resolve(true)
+                    })
                 })
             })
         },
-        addShoppingcarToDb(product, saleId, amount = 1) {
+        dbShoppingcarAdd(product, saleId, amount = 1) {
             let shoppingcar = new Shoppingcar({
                 fk_productId: product.productId,
                 fk_saleId: saleId,
                 amount: amount
             })
             return new Promise((resolve, reject) => {
-                ShoppingcarService.store(shoppingcar).then(response => {
-                    if (response.status === 200) {
-                        resolve(response.data[0])
-                    } else {
-                        reject('Error by saving shoppingcar into db')
-                    }
+                ShoppingcarService.store(shoppingcar)
+                    .then(response => {
+                        if (response.status === 200) {
+                            resolve(response.data[0])
+                        }
+                    })
+                    .catch(error => this.showModalMessage('Error', error))
+            })
+        },
+        dbShoppingcarsAdd: function (shoppingcar, saleId) {
+            return new Promise((resolve, reject) => {
+                shoppingcar.forEach((element, index) => {
+                    this.dbShoppingcarAdd(element, saleId).then(response => {
+                        if (index === shoppingcar.length - 1) resolve(true)
+                    })
                 })
             })
         },
-        addNewSaleToDb: function () {
+        dbSaleAdd: function () {
             this.sale = new Sale({
-                stationId: this.stationid,
+                stationId: this.stationId,
                 totalPrice: this.totalPrice
             })
             return new Promise((resolve, reject) => {
-                SaleService.store(this.sale).then(response => {
-                    if (response.status === 200) {
-                        resolve(response.data[0])
-                    } else {
-                        reject('Error by sale into db')
-                    }
-                })
+                SaleService.store(this.sale)
+                    .then(response => {
+                        if (response.status === 200) {
+                            resolve(response.data[0])
+                        }
+                    })
+                    .catch(error => this.showModalMessage('Error', error))
             })
         },
         /**
          * Btns onclick methods
          */
         clickTableAction: function (product) {
-            this.addProductToLocalShoppingcar(product)
-            this.updateShoppingcarTotalPrice()
+            this.localShoppingcarAddProduct(product)
+            this.localTotalPriceUpdate()
         },
         clickTableDelete: function (product) {
-            this.deleteProductFromLocalShoppingcar(
-                this.getProductIndexFromShoppingcar(product)
+            this.localShoppingcarDeleteProduct(
+                this.localShoppingcarGetProductIndex(product)
             )
-            this.updateShoppingcarTotalPrice()
+            this.localTotalPriceUpdate()
         },
         clickResetShoppingcar: function () {
-            this.resetAll()
-            this.updateShoppingcarTotalPrice()
+            this.localResetAll()
+            this.localTotalPriceUpdate()
         },
         clickCheckoutShoppingcar: function () {
             if (this.shoppingcar.length === 0) {
@@ -186,91 +217,106 @@ export default {
                     'You need to add a product to the shoppingcar!'
                 )
             }
-            this.addNewSaleToDb()
-                .then(sale => {
-                    this.shoppingcar.forEach((product, index) =>
-                        this.addShoppingcarToDb(product, sale.saleId)
-                            .then(result => {
-                                this.shoppingcarCheck.push(result)
-                                if (
-                                    index + 1 === this.shoppingcar.length &&
-                                    index + 1 === this.shoppingcarCheck.length
-                                ) {
+            this.dbSaleAdd().then(responseSale => {
+                /**
+                 * Add Shoppingcar
+                 */
+                this.dbShoppingcarsAdd(
+                    this.shoppingcar,
+                    responseSale.saleId
+                ).then(responseShoppingcar => {
+                    if (responseShoppingcar) {
+                        /**
+                         * Update Inventory
+                         */
+                        this.dbInventoriesUpdate(this.shoppingcar).then(
+                            responseInventories => {
+                                if (responseInventories) {
+                                    /**
+                                     * Generate Bill and reset all
+                                     */
                                     this.showModalMessage(
                                         'Info',
                                         this.generateBill(
-                                            sale,
+                                            responseSale,
                                             this.shoppingcar
                                         )
                                     )
-                                    this.resetAll()
-                                    this.updateShoppingcarTotalPrice()
+                                    this.localResetAll()
+                                    this.localTotalPriceUpdate()
                                 }
-                            })
-                            .catch(error => {
-                                this.resetAll()
-                                this.showModalMessage('Error', error)
-                            })
-                    )
+                            }
+                        )
+                    }
                 })
-                .catch(error => {
-                    this.resetAll()
-                    this.showModalMessage('Error', error)
-                })
+            })
         },
         clickRefreshProducts: function () {
-            this.loadInventoryFromDb()
+            this.localResetAll()
+            this.dbInventoryGet(this.stationId)
         },
         /**
          * Local storage methods
          */
-        getProductById(id) {
+        localProductsGet(id) {
             const product = this.products.filter(el => el.productId === id)
             return product
         },
-        addInventoryToLocalStorage(inventory) {
+        localInventoryAdd(inventory) {
             this.inventories.push(inventory)
         },
-        addProductToLocalStorage(product, inventory) {
+        localProductsAdd(product, inventory) {
+            if (inventory.currentAmount <= 0) return
             this.products.push({
                 productId: product.productId,
                 price: product.price,
-                name: product.name,
-                currentAmount: inventory.currentAmount,
-                targetAmount: inventory.targetAmount
+                name: product.name
+                // currentAmount: inventory.currentAmount
+                // targetAmount: inventory.targetAmount
             })
         },
-        addProductToLocalShoppingcar(product) {
-            let pro = this.getProductById(product.productId)
+        localShoppingcarAddProduct(product) {
+            let pro = this.localProductsGet(product.productId)
             this.shoppingcar.push(JSON.parse(JSON.stringify(product)))
         },
-        getProductIndexFromShoppingcar(product) {
+        localShoppingcarGetProductIndex(product) {
             return this.shoppingcar.findIndex(
                 el => el.productId === product.productId
             )
         },
-        deleteProductFromLocalShoppingcar(index) {
+        localShoppingcarDeleteProduct(index) {
             this.shoppingcar.splice(index, 1)
         },
-        deleteAllProductsFromLocalShoppingcar() {
-            this.shoppingcar.splice(0, this.shoppingcar.length)
-        },
-        updateShoppingcarTotalPrice() {
+        localTotalPriceUpdate() {
             this.totalPrice = this.shoppingcar.reduce(
                 (sum, { price }) => sum + price,
                 0
             )
         },
-        resetAll() {
-            this.shoppingcarCheck.splice(0, this.shoppingcarCheck.length)
-            this.deleteAllProductsFromLocalShoppingcar()
+        localgetInventoryIndex(productId) {
+            return this.inventories.findIndex(
+                el =>
+                    el.fk_stationId === this.stationId &&
+                    el.fk_productId === productId
+            )
+        },
+        localInventoryUpdate({ productId }) {
+            let index = this.localgetInventoryIndex(productId)
+            this.inventories[index].currentAmount--
+            return this.inventories[index]
+        },
+        localResetAll() {
+            this.shoppingcar.splice(0, this.shoppingcar.length)
+            this.inventories.splice(0, this.inventories.length)
+            this.products.splice(0, this.products.length)
+            this.dbInventoryGet(this.stationId)
         },
         /**
          * Modal form methods
          */
         handleModalSave: function (station) {
-            this.stationid = station.stationPrimaryKey
-            this.loadInventoryFromDb(this.stationid)
+            this.stationId = parseInt(station.stationPrimaryKey)
+            this.dbInventoryGet(this.stationId)
             this.hideModalForm()
         },
         updateModalForm: function (method, title, items) {
@@ -326,7 +372,7 @@ export default {
         })
     },
     destroyed() {
-        this.stationid = null
+        this.stationId = null
     }
 }
 </script>
