@@ -1,12 +1,18 @@
 <template>
     <div>
         <Header v-bind:subPages="navItems" />
-        <h1>lieferanten</h1>
+        <button @click="clickGetAll">getAll</button>
     </div>
 </template>
 
 <script>
 import Header from '../components/Header'
+
+import Refill from '../utils/Refill'
+import RefillService from '../services/RefillService'
+
+import Refillcar from '../utils/Refillcar'
+import RefillcarService from '../services/RefillcarService'
 
 export default {
     components: {
@@ -32,17 +38,13 @@ export default {
         }
     },
     methods: {
-        test: param => {
-            fetch('http://www.allgold.de/api/' + param, {
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': 's1CIuqNWtySD6EPGZRLEagORJnkcnELILBxZqK4p'
-                },
-                method: 'GET'
-            })
-                .then(response => response.json())
-                .then(data => console.log(data))
+        clickGetAll: function (el) {
+            RefillService.getAll().then(response =>
+                console.log('RefillService: ', response)
+            )
+            RefillcarService.getAll().then(response =>
+                console.log('RefillcarService: ', response)
+            )
         }
     }
 }
