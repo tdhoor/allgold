@@ -8,6 +8,8 @@ use App\Models\Station;
 use App\Models\Inventory;
 use App\Models\Sale;
 use App\Models\ShoppingCar;
+use App\Models\Refill;
+use App\Models\RefillCar;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,5 +25,7 @@ class DatabaseSeeder extends Seeder
         Inventory::factory(30)->create();
         Sale::factory(10)->create();
         ShoppingCar::factory(10)->create();
+        Refill::factory(10)->create();
+        RefillCar::factory(10)->create();
     }
 }
