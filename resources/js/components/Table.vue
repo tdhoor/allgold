@@ -12,6 +12,8 @@
                     :btnAction="btnAction"
                     :btnEdit="btnEdit"
                     :btnDelete="btnDelete"
+                    :inputField="inputField"
+                    :inputPlaceholder="inputPlaceholder"
                 />
             </tbody>
         </table>
@@ -25,7 +27,15 @@ import TableItem from './TableItem'
 export default {
     name: 'Table',
     components: { TableHeader, TableItem },
-    props: ['items', 'btnAction', 'btnDelete', 'btnEdit', 'modalName'],
+    props: [
+        'items',
+        'btnAction',
+        'btnDelete',
+        'btnEdit',
+        'modalName',
+        'inputField',
+        'inputPlaceholder'
+    ],
     methods: {
         clickTableAction: function (item) {
             this.$parent.clickTableAction(item)

@@ -5,7 +5,13 @@
             {{ value }}
         </td>
         <!-- btns -->
-        <td>
+        <td class="btn-box">
+            <input
+                v-if="inputField"
+                type="number"
+                class="form-control"
+                :placeholder="inputPlaceholder"
+            />
             <a
                 v-if="btnAction"
                 @click="clickTableAction()"
@@ -28,7 +34,14 @@
 <script>
 export default {
     name: 'TableItem',
-    props: ['item', 'btnAction', 'btnDelete', 'btnEdit'],
+    props: [
+        'item',
+        'btnAction',
+        'btnDelete',
+        'btnEdit',
+        'inputField',
+        'inputPlaceholder'
+    ],
     methods: {
         clickTableAction: function () {
             this.$parent.clickTableAction(this.item)
@@ -43,4 +56,15 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.btn-box {
+    display: flex;
+}
+.btn-box > a,
+.btn-box > input {
+    margin-right: 4px;
+}
+.btn-box > input {
+    max-width: 50px;
+}
+</style>
