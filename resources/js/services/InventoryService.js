@@ -36,4 +36,17 @@ export default class InventoryService {
                 .catch(error => console.log(error))
         })
     }
+
+    static getRefill() {
+        return new Promise((resolve, reject) => {
+            ApiService.getInstance()
+                .get(SERVER_URL + 'api/inventories/refillProducts')
+                .then(response => {
+                    if (response.status === 200) {
+                        resolve(response.data)
+                    }
+                })
+                .catch(error => console.log(error))
+        })
+    }
 }
