@@ -1,6 +1,6 @@
 <template>
     <nav id="navbar" class="navbar navbar-dark bg-primary navbar-expand-lg">
-        <a class="navbar-brand" href="/">Allgold | {{ title }}</a>
+        <a class="navbar-brand" href="/">Allgold {{ title }}</a>
         <button
             class="navbar-toggler"
             type="button"
