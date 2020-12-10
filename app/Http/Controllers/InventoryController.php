@@ -130,4 +130,16 @@ class InventoryController extends Controller
         $inventory = DB::table('inventories')->leftJoin('products', 'inventories.fk_productId', '=', 'products.productId')->where('fk_stationId', '=', $id)->get();
         return Converter::handleResponse('Successfully found!', 'Error by finding!', $inventory);
     }
+
+    public static function getRefill(){
+
+
+        $inventories = Inventory::whereRaw('currentAmount < targetAmount')
+            ->join('stations', 'stations.stationId', '=', 'inventories.fk_stationId')
+            ->join('products', 'products.productId', '=', 'inventories.fk_productId')
+            ->orderBy('fk_stationId', 'asc')
+            ->get();
+
+        return Converter::handleResponse('Successfully found!', 'Error by finding!', $inventories);
+    }
 }

@@ -23,7 +23,9 @@ class RefillFactory extends Factory
     {
         return [
             'fk_stationId' => $this->faker->numberBetween($min = 1, $max = 10),
-            'amount' => $this->faker->numberBetween($min = 10, $max = 50)
+            'fk_productId' => $this->faker->numberBetween($min = 1, $max = 10),
+            'amount' => $this->faker->numberBetween($min = 10, $max = 50),
+            'status' => 'open'
         ];
     }
 }

@@ -16,9 +16,12 @@ class CreateRefillsTable extends Migration
         Schema::create('refills', function (Blueprint $table) {
             $table->bigIncrements('refillId');
             $table->unsignedBigInteger('fk_stationId');
+            $table->unsignedBigInteger('fk_productId');
             $table->integer('amount');
+            $table->string('status');
             $table->timestamps();
             $table->foreign('fk_stationId')->references('stationId')->on('stations')->onDelete('cascade');
+            $table->foreign('fk_productId')->references('productId')->on('products')->onDelete('cascade');
         });
     }
 

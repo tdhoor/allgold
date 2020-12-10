@@ -43,12 +43,16 @@ class RefillController extends Controller
     {
         $this->validate($request, [
             'fk_stationId' => 'required|integer',
+            'fk_productId' => 'required|integer',
             'amount' => 'required',
+            'status' => 'required'
         ]);
 
         $refill = new Refill();
         $refill->fk_stationId = $request->input('fk_stationId');
+        $refill->fk_productId = $request->input('fk_productId');
         $refill->amount = $request->input('amount');
+        $refill->status = $request->input('status');
         $refill->save();
              
         return Converter::handleResponse('Successfully created!', 'Error by created!', $refill);
@@ -87,13 +91,17 @@ class RefillController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'fk_stationId' => 'required|integer',
+              'fk_stationId' => 'required|integer',
+            'fk_productId' => 'required|integer',
             'amount' => 'required',
+            'status' => 'required'
         ]);
 
         $refill = Refill::find($id);
         $refill->fk_stationId = $request->input('fk_stationId');
+        $refill->fk_productId = $request->input('fk_productId');
         $refill->amount = $request->input('amount');
+        $refill->status = $request->input('status');
         $refill->save();
              
         return Converter::handleResponse('Successfully updated!', 'Error by updating!', $refill);
@@ -111,22 +119,6 @@ class RefillController extends Controller
         $refill->delete();
 
         return Converter::handleResponse('Successfully deleted!', 'Error by deleting!', $refill);
-    }
-
-    public function getNewPrimaryKey(){
-        $id = DB::table('refills')->max('refillId') | 1;
-
-        return response()->json([
-            'status' => Response::HTTP_OK,
-            'data' => [
-                'refill' => [
-                    'refillid' => $id,
-                    'stationId' => 1,
-                    'price' => 99.99
-                ]
-                ],
-                
-        ]);
     }
 
     private function handleResponse($message, $errorMessage, $data){
