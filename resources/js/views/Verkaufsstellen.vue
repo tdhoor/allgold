@@ -80,16 +80,16 @@ export default {
             this.showModalForm(METHOD_UPDATE_STATION, 'Bearbeiten', station)
         },
         clickTableDelete: function (station) {
-            this.deleteStationFromDb(station)
+            this.dbStationsDelete(station)
         },
         /**
          * Handle subnav methods
          */
         handleSearch: function (text) {
-            this.searchStationsFromDb(text)
+            this.dbStationsSearch(text)
         },
         handleRefresh: function () {
-            this.loadStationsFromDb()
+            this.dbStationsGetAll()
         },
         handleAdd: function () {
             let dummy = Helper.getStationDummy()
@@ -98,11 +98,11 @@ export default {
         /**
          * Handle data from DB
          */
-        addStationToDb: function (station) {
+        dbStationsAdd: function (station) {
             StationService.create(station)
                 .then(response => {
                     this.hideModalForm()
-                    this.loadStationsFromDb()
+                    this.dbStationsGetAll()
                     this.showModalMessage(
                         'Info',
                         'Successfully created Station with id: ' +
@@ -113,32 +113,31 @@ export default {
                     this.showModalMessage('Error:', 'Check input fields!')
                 })
         },
-        searchStationsFromDb: function (text) {
+        dbStationsSearch: function (text) {
             StationService.getByLocationOrId(text)
                 .then(response => {
-                    this.deleteAllLocalStations()
-                    this.addEntries(response)
+                    this.localStationsDeleteAll()
+                    this.localStationsAdd(response)
                 })
                 .catch(error => {
                     this.showModalMessage('Error', error)
                 })
         },
-        loadStationsFromDb: function () {
+        dbStationsGetAll: function () {
             StationService.getAll()
                 .then(response => {
-                    this.deleteAllLocalStations()
-                    this.addEntries(response)
+                    this.localStationsDeleteAll()
+                    this.localStationsAdd(response)
                 })
                 .catch(error => {
-                    this.deleteAllLocalStations()
+                    this.localStationsDeleteAll()
                     this.showModalMessage('Error', error)
                 })
         },
-        updateStationInDb: function (station) {
-            console.log(station.toJSON())
+        dbStationsUpdate: function (station) {
             StationService.update(station.toJSON())
                 .then(response => {
-                    this.updateEntry(new Station(response))
+                    this.localStationsUpdate(new Station(response))
                     this.hideModalForm()
                     this.showModalMessage(
                         'Info',
@@ -147,15 +146,15 @@ export default {
                     )
                 })
                 .catch(error => {
-                    this.deleteAllLocalStations()
+                    this.localStationsDeleteAll()
                     this.showModalMessage('Error', error)
                 })
         },
-        deleteStationFromDb: function (station) {
-            const index = this.getLocalStationIndex(station)
+        dbStationsDelete: function (station) {
+            const index = this.localStationsGetIndex(station)
             StationService.delete(station.stationId)
                 .then(response => {
-                    this.deletEntry(index)
+                    this.localStationsDelete(index)
                     this.showModalMessage(
                         'Info',
                         'Successfully deleted station with id: ' +
@@ -163,34 +162,43 @@ export default {
                     )
                 })
                 .catch(error => {
-                    this.deleteAllLocalStations()
+                    this.localStationsDeleteAll()
                     this.showModalMessage('Error', error)
                 })
         },
         /**
          * Handle local stored data
          */
-        updateEntry: function (station) {
-            let index = this.getLocalStationIndex(station)
+        localStationsUpdate: function (station) {
+            let index = this.localStationsGetIndex(station)
             this.stations.splice(index, 1, station)
         },
-        deletEntry: function (index) {
+        localStationsDelete: function (index) {
             this.stations.splice(index, 1)
         },
-        addEntries: function (stations) {
+        localStationsAdd: function (stations) {
             stations.forEach(element => {
                 let station = new Station(element)
                 this.stations.push(station)
             })
+        },
+        localStationsDeleteAll: function () {
+            this.stations.splice(0, this.stations.length)
+        },
+        localStationsGetIndex: function (item) {
+            const index = this.stations.findIndex(
+                x => x.stationId === item.stationId
+            )
+            return index
         },
         /**
          * Modal form methods
          */
         handleModalSave: function (station) {
             if (this.modal.form.method === METHOD_UPDATE_STATION)
-                this.updateStationInDb(station)
+                this.dbStationsUpdate(station)
             if (this.modal.form.method === METHOD_NEW_STATION)
-                this.addStationToDb(station)
+                this.dbStationsAdd(station)
         },
         updateModalForm: function (method, title, items) {
             this.modal.form.method = method
@@ -217,18 +225,6 @@ export default {
         },
         hideModalMessage: function () {
             $('#' + this.modal.message.name).modal('hide')
-        },
-        /**
-         * Helper methods
-         */
-        deleteAllLocalStations: function () {
-            this.stations.splice(0, this.stations.length)
-        },
-        getLocalStationIndex: function (item) {
-            const index = this.stations.findIndex(
-                x => x.stationId === item.stationId
-            )
-            return index
         }
     },
     watch: {
@@ -246,7 +242,7 @@ export default {
         }
     },
     created() {
-        this.loadStationsFromDb()
+        this.dbStationsGetAll()
     }
 }
 </script>

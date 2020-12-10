@@ -196,9 +196,7 @@ export default {
         },
         loadData() {
             RefillService.getAll().then(response => {
-                console.log(response)
                 response.forEach((element, index) => {
-                    console.log(element)
                     this.localRefillAdd(new Refill(element))
                 })
             })

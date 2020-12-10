@@ -31,19 +31,6 @@ export default {
             ]
         }
     },
-    methods: {
-        test: param => {
-            fetch('http://www.allgold.de/api/' + param, {
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': 's1CIuqNWtySD6EPGZRLEagORJnkcnELILBxZqK4p'
-                },
-                method: 'GET'
-            })
-                .then(response => response.json())
-                .then(data => console.log(data))
-        }
-    }
+    methods: {}
 }
 </script>
