@@ -65,6 +65,6 @@ export default {
     margin-right: 4px;
 }
 .btn-box > input {
-    max-width: 50px;
+    max-width: 100px;
 }
 </style>

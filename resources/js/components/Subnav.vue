@@ -3,7 +3,7 @@
         class="navbar navbar-light navbar-expand-lg"
         style="background-color: #e3f2fd"
     >
-        <a class="navbar-brand" href="#">Aktionen:</a>
+        <a class="navbar-brand" href="#">{{ title || 'Aktionen:' }}</a>
         <button
             class="navbar-toggler"
             type="button"
@@ -66,7 +66,7 @@
 <script>
 export default {
     name: 'Subnav',
-    props: ['formSearch', 'btnRefresh', 'btnAdd'],
+    props: ['formSearch', 'btnRefresh', 'btnAdd', 'title'],
     data() {
         return {
             searchValue: null,

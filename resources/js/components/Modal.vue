@@ -32,7 +32,7 @@
                                 :key="key"
                             >
                                 <label :for="value">{{
-                                    key.replace('_', '')
+                                    key.replace('_hide', '').replace('_', '')
                                 }}</label>
                                 <input
                                     v-if="key !== '_type'"
@@ -40,9 +40,10 @@
                                     class="form-control"
                                     :id="key"
                                     :readonly="
-                                        key.includes('id') ||
+                                        key.toLowerCase().includes('id') ||
                                         key.includes('created') ||
-                                        key.includes('updated')
+                                        key.includes('updated') ||
+                                        key.includes('info')
                                     "
                                     v-model="items[key]"
                                     required
