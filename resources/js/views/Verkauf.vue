@@ -378,7 +378,7 @@ export default {
 </script>
 <style>
 .app-container {
-    height: calc(100% - 80px); /** minus navbar */
+    height: calc(100vh - 80px); /** minus navbar */
     padding: 20px;
 }
 .card,
