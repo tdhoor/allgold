@@ -9,6 +9,7 @@ import Verkaufsstellen from './views/Verkaufsstellen.vue'
 import Reporting from './views/Reporting.vue'
 import Formulare from './views/Formulare.vue'
 import Lieferanten from './views/Lieferanten.vue'
+import LieferantenRefill from './views/LieferantenRefill.vue'
 
 const Router = new VueRouter({
     routes: [
@@ -16,6 +17,7 @@ const Router = new VueRouter({
         { path: '/verkauf', component: Verkauf },
         { path: '/verkaufsstellen', component: Verkaufsstellen },
         { path: '/lieferanten', component: Lieferanten },
+        { path: '/lieferanten/refill', component: LieferantenRefill },
         { path: '/reporting', component: Reporting },
         { path: '/formulare', component: Formulare }
     ],
