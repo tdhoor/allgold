@@ -34,7 +34,7 @@
                         class="btn btn-secondary"
                         data-dismiss="modal"
                     >
-                        Close
+                        {{ BTN_TXT_CLOSE }}
                     </button>
                 </div>
             </div>
@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import { BTN_TXT_CLOSE } from '../utils/Variables'
 export default {
     name: 'ModalMessage',
     props: ['modalName', 'title', 'message']

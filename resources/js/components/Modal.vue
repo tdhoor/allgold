@@ -72,14 +72,14 @@
                         class="btn btn-secondary"
                         data-dismiss="modal"
                     >
-                        Close
+                        {{ BTN_TXT_CLOSE }}
                     </button>
                     <button
                         @click="saveEntry()"
                         type="button"
                         class="btn btn-primary"
                     >
-                        Speichern
+                        {{ BTN_TXT_SAVE }}
                     </button>
                 </div>
             </div>
@@ -88,6 +88,8 @@
 </template>
 
 <script>
+import { BTN_TXT_SAVE, BTN_TXT_CLOSE } from '../utils/Variables'
+
 export default {
     name: 'Modal',
     props: ['items', 'modalName', 'title'],

@@ -1,7 +1,12 @@
 <template>
     <div class="app-inner">
         <Header />
-        <Subnav :formSearch="true" :btnRefresh="true" :btnAdd="true" />
+        <Subnav
+            :formSearch="true"
+            :btnRefresh="true"
+            :btnAdd="true"
+            :title="'Action'"
+        />
         <Modal
             :modalName="modal.form.name"
             :items="modal.form.items"

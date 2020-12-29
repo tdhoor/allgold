@@ -1,7 +1,10 @@
 <template>
     <div>
         <Header v-bind:subPages="navItems" />
-        <h1>formulare</h1>
+        <h1>
+            This app is not hosted on my server and is therefore currently not
+            available.
+        </h1>
     </div>
 </template>
 
@@ -16,19 +19,7 @@ export default {
     data() {
         return {
             message: 'hellow',
-            navItems: [
-                {
-                    url: 'http://www.allgold.de/verkaufsstellen',
-                    name: 'Verkaufsstellen'
-                },
-                {
-                    url: 'http://www.allgold.de/lieferanten',
-                    name: 'Lieferanten'
-                },
-                { url: 'http://www.allgold.de/verkauf', name: 'Verkauf' },
-                { url: 'http://www.allgold.de/reporting', name: 'Reporting' },
-                { url: 'http://www.allgold.de/formulare', name: 'Formulare' }
-            ]
+            navItems: []
         }
     },
     methods: {}

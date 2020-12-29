@@ -27,7 +27,7 @@
                         class="btn btn-outline-primary ml-auto my-lg-0"
                         style="margin-right: 12px"
                     >
-                        Refresh
+                        {{ BTN_TXT_REFRESH }}
                     </button>
                 </li>
                 <li class="nav-item" v-if="btnAdd">
@@ -37,7 +37,7 @@
                         class="btn btn-outline-primary ml-auto my-lg-0"
                         style="margin-right: 12px"
                     >
-                        Add
+                        {{ BTN_TXT_ADD }}
                     </button>
                 </li>
             </ul>
@@ -56,7 +56,7 @@
                     type="submit"
                     style="80px;"
                 >
-                    Search
+                    {{ BTN_TXT_SEARCH }}
                 </button>
             </form>
         </div>
@@ -64,6 +64,12 @@
 </template>
 
 <script>
+import {
+    BTN_TXT_ADD,
+    BTN_TXT_REFRESH,
+    BTN_TXT_SEARCH
+} from '../utils/Variables'
+
 export default {
     name: 'Subnav',
     props: ['formSearch', 'btnRefresh', 'btnAdd', 'title'],

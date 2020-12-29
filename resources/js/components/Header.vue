@@ -1,6 +1,6 @@
 <template>
     <nav id="navbar" class="navbar navbar-dark bg-primary navbar-expand-lg">
-        <a class="navbar-brand" href="/">Allgold {{ title }}</a>
+        <a class="navbar-brand" href="/">{{ APP_TITLE }} {{ title }}</a>
         <button
             class="navbar-toggler"
             type="button"
@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import { APP_TITLE } from '../utils/Variables'
+
 export default {
     name: 'Header',
     props: ['subPages'],

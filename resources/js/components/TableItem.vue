@@ -16,22 +16,27 @@
                 v-if="btnAction"
                 @click="clickTableAction()"
                 class="btn btn-primary"
-                >Add</a
+                >{{ BTN_TXT_ADD }}</a
             >
-            <a v-if="btnEdit" @click="clickTableEdit()" class="btn btn-warning"
-                >Edit</a
+            <a
+                v-if="btnEdit"
+                @click="clickTableEdit()"
+                class="btn btn-warning"
+                >{{ BTN_TXT_EDIT }}</a
             >
             <a
                 v-if="btnDelete"
                 @click="clickTableDelete()"
                 class="btn btn-danger"
-                >Delete</a
+                >{{ BTN_TXT_DELETE }}</a
             >
         </td>
     </tr>
 </template>
 
 <script>
+import { BTN_TXT_ADD, BTN_TXT_EDIT, BTN_TXT_DELETE } from '../utils/Variables'
+
 export default {
     name: 'TableItem',
     props: [

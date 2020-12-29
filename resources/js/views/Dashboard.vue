@@ -18,6 +18,20 @@
 <script>
 import Header from '../components/Header'
 import CardItem from '../components/CardItem.vue'
+import Server, {
+    SERVER_URL,
+    URL_FORMULARE,
+    URL_LIEFERANTEN,
+    URL_REPORTING,
+    URL_VERKAUF
+} from '../server/Server'
+import APP_VERKAUFSSTELLEN_TITLE, {
+    APP_FORMULARE_TITLE,
+    APP_LIEFERANTEN_TITLE,
+    APP_REPORTING_TITLE,
+    APP_VERKAUF_TITLE,
+    BTN_TXT_START
+} from '../utils/Variables'
 
 export default {
     components: {
@@ -27,56 +41,56 @@ export default {
     computed: {},
     data() {
         return {
-            message: 'hellow',
+            message: '',
             cards: [
                 {
-                    heading: 'Verkaufsstellen',
+                    heading: APP_VERKAUFSSTELLEN_TITLE,
                     subheading: 'Geschäftsführer',
                     text:
                         'Mit dieser App können Sie alle Verkaufstellen verwalten.',
                     btn: {
-                        url: 'http://www.allgold.de/verkaufsstellen',
-                        text: 'Starten'
+                        url: URL_VERKAUFSSTELLEN,
+                        text: BTN_TXT_START
                     }
                 },
                 {
-                    heading: 'Lieferanten',
+                    heading: APP_LIEFERANTEN_TITLE,
                     subheading: 'Lieferant',
                     text:
                         'Mit dieser App können Produktauffüllungen erfasst und Auffüllpläne erstellt werden.',
                     btn: {
-                        url: 'http://www.allgold.de/lieferanten',
-                        text: 'Starten'
+                        url: URL_LIEFERANTEN,
+                        text: BTN_TXT_START
                     }
                 },
                 {
-                    heading: 'Verkauf',
+                    heading: APP_VERKAUF_TITLE,
                     subheading: 'Verkäufer',
                     text:
                         'Mit dieser App können Verkäufe und Produkte erfasst werden.',
                     btn: {
-                        url: 'http://www.allgold.de/verkauf',
-                        text: 'Starten'
+                        url: URL_VERKAUF,
+                        text: BTN_TXT_START
                     }
                 },
                 {
-                    heading: 'Reporting',
+                    heading: APP_REPORTING_TITLE,
                     subheading: 'Geschäftsführer, Lagermitarbeiter',
                     text:
                         'Diese App dient zur Lagerverwaltung und zum erstellen von Produktumsatz- und Verkaufsstellenauszug.',
                     btn: {
-                        url: 'http://www.allgold.de/reporting',
-                        text: 'Starten'
+                        url: URL_REPORTING,
+                        text: BTN_TXT_START
                     }
                 },
                 {
-                    heading: 'Formulare',
+                    heading: APP_FORMULARE_TITLE,
                     subheading: 'Mitarbeiter von Allgäu GmbH',
                     text:
                         'Mit dieser App können diverse Formulare und Dokumente gedruckt werden.',
                     btn: {
-                        url: 'http://www.allgold.de/formulare',
-                        text: 'Starten'
+                        url: URL_FORMULARE,
+                        text: BTN_TXT_START
                     }
                 }
             ]

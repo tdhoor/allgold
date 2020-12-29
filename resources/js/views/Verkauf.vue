@@ -24,7 +24,7 @@
                             class="btn btn-primary"
                             @click="clickRefreshProducts"
                         >
-                            Refresh
+                            {{ BTN_TXT_REFRESH }}
                         </button>
                     </div>
                 </div>
@@ -43,13 +43,13 @@
                                 class="btn btn-primary"
                                 @click="clickCheckoutShoppingcar"
                             >
-                                Checkout
+                                {{ BTN_TEXT_CHECKOUT }}
                             </button>
                             <button
                                 class="btn btn-warning"
                                 @click="clickResetShoppingcar"
                             >
-                                Cancel
+                                {{ BNT_TEXT_CANCEL }}
                             </button>
                         </div>
                         <div class="d-flex align-items-center">
@@ -79,6 +79,12 @@ import Product from '../utils/Product'
 import Inventory from '../utils/Inventory'
 import Sale from '../utils/Sale'
 import Shoppingcar from '../utils/Shoppingcar'
+
+import {
+    BTN_TEXT_CHECKOUT,
+    BTN_TXT_CANCEL,
+    BTN_TXT_REFRESH
+} from '../utils/Variables'
 
 export default {
     name: 'Verkauf',

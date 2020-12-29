@@ -2,7 +2,7 @@
     <div>
         <div class="app-inner">
             <Header v-bind:subPages="navItems" />
-            <Subnav :btnRefresh="true" :title="'Neue Lieferung erstellen'" />
+            <Subnav :btnRefresh="true" :title="'Action'" />
             <Modal
                 :modalName="modal.form.name"
                 :items="modal.form.items"
@@ -44,6 +44,11 @@ import InventoryService from '../services/InventoryService'
 import ProductService from '../services/ProductService'
 // Helpers
 import Helper from '../helper/Helper'
+import { URL_LIEFERANTEN, URL_LIEFERANTEN_STATUS } from '../server/Server'
+import {
+    APP_LIEFERANTEN_LIEFERUNG_TITLE,
+    APP_LIEFERANTEN_STATUS_TITLE
+} from '../utils/Variables'
 // Constants
 const METHOD_POST = 'methodPost'
 const METHOD_UPDATE = 'methodUpdate'
@@ -62,12 +67,12 @@ export default {
             refills: [],
             navItems: [
                 {
-                    url: 'http://www.allgold.de/lieferanten',
-                    name: 'Lieferanten'
+                    url: URL_LIEFERANTEN,
+                    name: APP_LIEFERANTEN_LIEFERUNG_TITLE
                 },
                 {
-                    url: 'http://www.allgold.de/lieferanten/refill',
-                    name: 'Refills'
+                    url: URL_LIEFERANTEN_STATUS,
+                    name: APP_LIEFERANTEN_STATUS_TITLE
                 }
             ],
             modal: {
