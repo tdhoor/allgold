@@ -106,10 +106,11 @@ export default {
         }
     },
     data() {
-        // opt. 1
         return {
             backupItem: {},
-            firstLoad: true
+            firstLoad: true,
+            BTN_TXT_SAVE: BTN_TXT_SAVE,
+            BTN_TXT_CLOSE: BTN_TXT_CLOSE
         }
     },
     methods: {

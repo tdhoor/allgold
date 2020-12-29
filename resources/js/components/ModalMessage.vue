@@ -46,7 +46,12 @@
 import { BTN_TXT_CLOSE } from '../utils/Variables'
 export default {
     name: 'ModalMessage',
-    props: ['modalName', 'title', 'message']
+    props: ['modalName', 'title', 'message'],
+    data() {
+        return {
+            BTN_TXT_CLOSE: BTN_TXT_CLOSE
+        }
+    }
 }
 </script>
 

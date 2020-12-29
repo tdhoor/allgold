@@ -76,7 +76,10 @@ export default {
     data() {
         return {
             searchValue: null,
-            inputText: ''
+            inputText: '',
+            BTN_TXT_ADD: BTN_TXT_ADD,
+            BTN_TXT_REFRESH: BTN_TXT_REFRESH,
+            BTN_TXT_SEARCH: BTN_TXT_SEARCH
         }
     },
     methods: {

@@ -43,13 +43,13 @@
                                 class="btn btn-primary"
                                 @click="clickCheckoutShoppingcar"
                             >
-                                {{ BTN_TEXT_CHECKOUT }}
+                                {{ BTN_TXT_CHECKOUT }}
                             </button>
                             <button
                                 class="btn btn-warning"
                                 @click="clickResetShoppingcar"
                             >
-                                {{ BNT_TEXT_CANCEL }}
+                                {{ BTN_TXT_CANCEL }}
                             </button>
                         </div>
                         <div class="d-flex align-items-center">
@@ -81,7 +81,7 @@ import Sale from '../utils/Sale'
 import Shoppingcar from '../utils/Shoppingcar'
 
 import {
-    BTN_TEXT_CHECKOUT,
+    BTN_TXT_CHECKOUT,
     BTN_TXT_CANCEL,
     BTN_TXT_REFRESH
 } from '../utils/Variables'
@@ -115,7 +115,10 @@ export default {
                     title: 'Error',
                     message: 'No search result!'
                 }
-            }
+            },
+            BTN_TXT_CHECKOUT: BTN_TXT_CHECKOUT,
+            BTN_TXT_CANCEL: BTN_TXT_CANCEL,
+            BTN_TXT_REFRESH: BTN_TXT_REFRESH
         }
     },
     methods: {

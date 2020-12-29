@@ -47,6 +47,13 @@ export default {
         'inputField',
         'inputPlaceholder'
     ],
+    data() {
+        return {
+            BTN_TXT_ADD: BTN_TXT_ADD,
+            BTN_TXT_EDIT: BTN_TXT_EDIT,
+            BTN_TXT_DELETE: BTN_TXT_DELETE
+        }
+    },
     methods: {
         clickTableAction: function () {
             this.$parent.clickTableAction(this.item)

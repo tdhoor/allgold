@@ -19,13 +19,14 @@
 import Header from '../components/Header'
 import CardItem from '../components/CardItem.vue'
 import Server, {
-    SERVER_URL,
+    URL_VERKAUFSSTELLEN,
     URL_FORMULARE,
     URL_LIEFERANTEN,
     URL_REPORTING,
     URL_VERKAUF
 } from '../server/Server'
-import APP_VERKAUFSSTELLEN_TITLE, {
+import {
+    APP_VERKAUFSSTELLEN_TITLE,
     APP_FORMULARE_TITLE,
     APP_LIEFERANTEN_TITLE,
     APP_REPORTING_TITLE,
