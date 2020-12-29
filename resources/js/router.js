@@ -13,13 +13,19 @@ import LieferantenRefill from './views/LieferantenRefill.vue'
 
 const Router = new VueRouter({
     routes: [
-        { path: '/', component: Dashboard },
-        { path: '/verkauf', component: Verkauf },
-        { path: '/verkaufsstellen', component: Verkaufsstellen },
-        { path: '/lieferanten', component: Lieferanten },
-        { path: '/lieferanten/refill', component: LieferantenRefill },
-        { path: '/reporting', component: Reporting },
-        { path: '/formulare', component: Formulare }
+        { path: '/projects/allgold/', component: Dashboard },
+        { path: '/projects/allgold/verkauf', component: Verkauf },
+        {
+            path: '/projects/allgold/verkaufsstellen',
+            component: Verkaufsstellen
+        },
+        { path: '/projects/allgold/lieferanten', component: Lieferanten },
+        {
+            path: '/projects/allgold/lieferanten/refill',
+            component: LieferantenRefill
+        },
+        { path: '/projects/allgold/reporting', component: Reporting },
+        { path: '/projects/allgold/formulare', component: Formulare }
     ],
     mode: 'history'
 })
