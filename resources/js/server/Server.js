@@ -1,4 +1,4 @@
-export const SERVER_URL = 'https://www.thomasdorfer.com/'
+export const SERVER_URL = 'https://www.thomasdorfer.com/projects/allgold/'
 
 export const API_PRODUCT = 'products'
 export const API_SHOPPINGCAR = 'shoppingcar'
