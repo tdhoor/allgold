@@ -1,6 +1,8 @@
 <template>
     <nav id="navbar" class="navbar navbar-dark bg-primary navbar-expand-lg">
-        <a class="navbar-brand" href="/">{{ APP_TITLE }} {{ title }}</a>
+        <a class="navbar-brand" v-bind:href="SERVER_URL"
+            >{{ APP_TITLE }} {{ title }}</a
+        >
         <button
             class="navbar-toggler"
             type="button"
@@ -26,6 +28,7 @@
 
 <script>
 import { APP_TITLE } from '../utils/Variables'
+import { SERVER_URL } from '../server/Server'
 
 export default {
     name: 'Header',
@@ -33,7 +36,9 @@ export default {
     data() {
         return {
             title: 'Allgold',
-            items: []
+            items: [],
+            APP_TITLE: APP_TITLE,
+            SERVER_URL: SERVER_URL
         }
     },
     mounted() {
